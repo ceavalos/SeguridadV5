@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Login Cambio Empresa</title>   
+        <h:outputStylesheet library="css"  name="Principal.css"/>
+    </h:head>
+    <h:body>
+            <div id="loginC">
+                <h:form>
+                    <p:messages autoUpdate="true"  showDetail="true"/>
+                   
+                    <p:fieldset legend="CAMBIO EMPRESA">
+                        <h:panelGrid columns="2">                
+                            <p:outputLabel for="txtUser"    value="User" />
+                            <p:inputText id="txtUser" value="#{cambioEmpresa.usuario.codUsuario}" required="false" onchange=""/>               
+
+                            <p:outputLabel for="txtClave"  value="clave" />
+                            <p:password id="txtClave"   value="#{cambioEmpresa.usuario.clave}" required="false" />                                                
+                            
+                            <p:outputLabel for="IdEmpresa"    value="Seleccione Empresa" />
+                            <p:selectOneMenu id="IdEmpresa" value="#{cambioEmpresa.emp.idEmpresa}">
+                                <f:selectItems value="#{cambioEmpresa.empresaList}" var="emp1" itemLabel="#{emp1.nombre}" itemValue="#{emp1.idEmpresa}" />
+                            </p:selectOneMenu>
+                            
+                            <p:commandButton value = "Cancelar"  action="#{cambioEmpresa.cancelar()}"  icon="ui-icon-key"/> 
+                            <p:commandButton value = "Cambiar Empresa"  action="#{cambioEmpresa.iniciarSesion()}"  icon="ui-icon-key"/> 
+
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </div>
+    </h:body>
+</html>

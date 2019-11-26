@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="OpcionesListForm">
+
+        <p:panel header="#{myBundle.ListOpcionesTitle}">
+            <p:contextMenu id="OpcionesDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('OpcionesListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('OpcionesListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('OpcionesListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('OpcionesListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.OpcionesMenuItem_opcionesRolesCollection}" icon="ui-icon-search"  action="#{opcionesController.navigateOpcionesRolesCollection}" disabled="#{opcionesController.isOpcionesRolesCollectionEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.OpcionesMenuItem_idEmpresa}" icon="ui-icon-search"  actionListener="#{opcionesController.prepareIdEmpresa}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty opcionesController.selected.idEmpresa}"/>  
+                <p:menuitem value="#{myBundle.OpcionesMenuItem_opcionesCollection}" icon="ui-icon-search"  action="#{opcionesController.navigateOpcionesCollection}" disabled="#{opcionesController.isOpcionesCollectionEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.OpcionesMenuItem_codigoSubmenu}" icon="ui-icon-search"  actionListener="#{opcionesController.prepareCodigoSubmenu}" update=":OpcionesViewForm" oncomplete="PF('OpcionesViewDialog').show()" disabled="#{empty opcionesController.selected.codigoSubmenu}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{opcionesController.items}"
+                         lazy="false"
+                         rowKey="#{item.idOpcion}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{opcionesController.selected}"
+                         filteredValue="#{opcionesController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{opcionesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idOpcion}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:OpcionesDataTableContextMenu" listener="#{opcionesController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:OpcionesDataTableContextMenu" listener="#{opcionesController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{opcionesController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('OpcionesListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idOpcion}" filterBy="#{item.idOpcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOpcionesTitle_idOpcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idOpcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.descOpcion}" filterBy="#{item.descOpcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOpcionesTitle_descOpcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descOpcion}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tipo}" filterBy="#{item.tipo}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOpcionesTitle_tipo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipo}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOpcionesTitle_estado}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estado}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idEmpresa.idEmpresa}" filterBy="#{item.idEmpresa.idEmpresa}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOpcionesTitle_idEmpresa}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEmpresa.idEmpresa}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.codigoSubmenu.idOpcion}" filterBy="#{item.codigoSubmenu.idOpcion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOpcionesTitle_codigoSubmenu}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigoSubmenu.idOpcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{opcionesController.prepareCreate}" update=":OpcionesCreateForm" oncomplete="PF('OpcionesCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":OpcionesViewForm" oncomplete="PF('OpcionesViewDialog').show()" disabled="#{empty opcionesController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":OpcionesEditForm" oncomplete="PF('OpcionesEditDialog').show()" disabled="#{empty opcionesController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{opcionesController.delete}" update=":growl,datalist" disabled="#{empty opcionesController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

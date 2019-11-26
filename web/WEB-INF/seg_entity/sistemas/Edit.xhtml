@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="SistemasEditDlg" widgetVar="SistemasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditSistemasTitle}" closeOnEscape="true">
+
+            <h:form id="SistemasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{sistemasController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditSistemasLabel_idSistema}" for="idSistema" />
+                        <h:outputText id="idSistema" value="#{sistemasController.selected.idSistema}" />
+
+                        <p:outputLabel value="#{myBundle.EditSistemasLabel_nombreSistema}" for="nombreSistema" />
+                        <p:inputText id="nombreSistema" value="#{sistemasController.selected.nombreSistema}" title="#{myBundle.EditSistemasTitle_nombreSistema}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditSistemasLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{sistemasController.selected.descripcion}" title="#{myBundle.EditSistemasTitle_descripcion}" size="200" maxlength="200"/>
+
+                        <p:outputLabel value="#{myBundle.EditSistemasLabel_rutaInicio}" for="rutaInicio" />
+                        <p:inputText id="rutaInicio" value="#{sistemasController.selected.rutaInicio}" title="#{myBundle.EditSistemasTitle_rutaInicio}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditSistemasLabel_icono}" for="icono" />
+                        <p:inputText id="icono" value="#{sistemasController.selected.icono}" title="#{myBundle.EditSistemasTitle_icono}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{myBundle.EditSistemasLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{sistemasController.selected.estado}" title="#{myBundle.EditSistemasTitle_estado}" required="true" requiredMessage="#{myBundle.EditSistemasRequiredMessage_estado}" size="1" maxlength="1"/>
+
+                        <p:outputLabel value="#{myBundle.EditSistemasLabel_idEmpresa}" for="idEmpresa" />
+                        <p:selectOneMenu id="idEmpresa" value="#{sistemasController.selected.idEmpresa}"  converter="empresaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empresaController.items}"
+                                           var="idEmpresaItem"
+                                           itemValue="#{idEmpresaItem}"
+                                           itemLabel="#{idEmpresaItem.idEmpresa.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{sistemasController.save}" value="#{myBundle.Save}" update="display,:SistemasListForm:datalist,:SistemasListForm:SistemasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SistemasEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SistemasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

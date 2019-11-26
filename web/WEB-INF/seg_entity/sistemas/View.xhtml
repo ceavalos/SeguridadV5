@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SistemasViewDlg" widgetVar="SistemasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewSistemasTitle}" closeOnEscape="true">
+
+            <h:form id="SistemasViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{sistemasController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_idSistema}"/>
+                        <h:outputText value="#{sistemasController.selected.idSistema}" title="#{myBundle.ViewSistemasTitle_idSistema}"/>
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_nombreSistema}"/>
+                        <h:outputText value="#{sistemasController.selected.nombreSistema}" title="#{myBundle.ViewSistemasTitle_nombreSistema}"/>
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_descripcion}"/>
+                        <h:outputText value="#{sistemasController.selected.descripcion}" title="#{myBundle.ViewSistemasTitle_descripcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_rutaInicio}"/>
+                        <h:outputText value="#{sistemasController.selected.rutaInicio}" title="#{myBundle.ViewSistemasTitle_rutaInicio}"/>
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_icono}"/>
+                        <h:outputText value="#{sistemasController.selected.icono}" title="#{myBundle.ViewSistemasTitle_icono}"/>
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_estado}"/>
+                        <h:outputText value="#{sistemasController.selected.estado}" title="#{myBundle.ViewSistemasTitle_estado}"/>
+
+                        <h:outputText value="#{myBundle.ViewSistemasLabel_idEmpresa}"/>
+                        <h:outputText value="#{sistemasController.selected.idEmpresa.idEmpresa}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('SistemasViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

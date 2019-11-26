@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Login</title>   
+        <h:outputStylesheet library="css"  name="Principal.css"/>
+    </h:head>
+    <h:body>
+            <div id="loginC">
+                <h:form>
+                    <p:messages autoUpdate="true"  showDetail="true"/>
+                   
+                    <p:fieldset legend="ACCESO">
+                        <h:panelGrid columns="2">                
+                            <p:outputLabel for="txtUser"    value="User" />
+                            <p:inputText id="txtUser" value="#{loginController.usuario.codUsuario}" required="true" onchange=""/>               
+
+                            <p:outputLabel for="txtClave"  value="clave" />
+                            <p:password id="txtClave"   value="#{loginController.usuario.clave}" required="true" />                                                
+                            
+                            <p:outputLabel for="IdEmpresa"    value="Seleccione Empresa" />
+                            <p:selectOneMenu id="IdEmpresa" value="#{loginController.emp.idEmpresa}">
+                                <f:selectItems value="#{loginController.empresaList}" var="emp1" itemLabel="#{emp1.nombre}" itemValue="#{emp1.idEmpresa}" />
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="" />
+                            <p:commandButton value = "Iniciar Sesion"  action="#{loginController.iniciarSesion()}"  icon="ui-icon-key"/>                
+
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </div>
+    </h:body>
+</html>

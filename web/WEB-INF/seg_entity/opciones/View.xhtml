@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OpcionesViewDlg" widgetVar="OpcionesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewOpcionesTitle}" closeOnEscape="true">
+
+            <h:form id="OpcionesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{opcionesController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewOpcionesLabel_idOpcion}"/>
+                        <h:outputText value="#{opcionesController.selected.idOpcion}" title="#{myBundle.ViewOpcionesTitle_idOpcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewOpcionesLabel_descOpcion}"/>
+                        <h:outputText value="#{opcionesController.selected.descOpcion}" title="#{myBundle.ViewOpcionesTitle_descOpcion}"/>
+
+                        <h:outputText value="#{myBundle.ViewOpcionesLabel_tipo}"/>
+                        <h:outputText value="#{opcionesController.selected.tipo}" title="#{myBundle.ViewOpcionesTitle_tipo}"/>
+
+                        <h:outputText value="#{myBundle.ViewOpcionesLabel_estado}"/>
+                        <h:outputText value="#{opcionesController.selected.estado}" title="#{myBundle.ViewOpcionesTitle_estado}"/>
+
+                        <h:outputText value="#{myBundle.ViewOpcionesLabel_idEmpresa}"/>
+                        <h:outputText value="#{opcionesController.selected.idEmpresa.idEmpresa}"/>
+
+                        <h:outputText value="#{myBundle.ViewOpcionesLabel_codigoSubmenu}"/>
+                        <h:outputText value="#{opcionesController.selected.codigoSubmenu.idOpcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('OpcionesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosRolesCreateDlg" widgetVar="UsuariosRolesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsuariosRolesTitle}" closeOnEscape="true">
+
+            <h:form id="UsuariosRolesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuariosRolesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUsuariosRolesLabel_idRol}" for="idRol" />
+                        <p:inputText id="idRol" value="#{usuariosRolesController.selected.idRol}" title="#{myBundle.CreateUsuariosRolesTitle_idRol}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuariosRolesLabel_idEmpresa}" for="idEmpresa" />
+                        <p:selectOneMenu id="idEmpresa" value="#{usuariosRolesController.selected.idEmpresa}"  converter="empresaConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empresaController.items}"
+                                           var="idEmpresaItem"
+                                           itemValue="#{idEmpresaItem}"
+                                           itemLabel="#{idEmpresaItem.idEmpresa.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuariosRolesLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{usuariosRolesController.selected.idUsuario}"  converter="usuariosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuariosController.items}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"
+                                           itemLabel="#{idUsuarioItem.idUsuario.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuariosRolesController.saveNew}" value="#{myBundle.Save}" update="display,:UsuariosRolesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosRolesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuariosRolesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
