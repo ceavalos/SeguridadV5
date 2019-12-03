@@ -56,6 +56,11 @@ public class Opciones implements Serializable {
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID_EMPRESA")
     @ManyToOne
     private Empresa idEmpresa;
+    
+    @JoinColumn(name = "ID_SISTEMA", referencedColumnName = "ID_SISTEMA")
+    @ManyToOne
+    private Sistemas idSistema;
+    
     @OneToMany(mappedBy = "codigoSubmenu")
     private Collection<Opciones> opcionesCollection;
     @JoinColumn(name = "CODIGO_SUBMENU", referencedColumnName = "ID_OPCION")
@@ -63,6 +68,14 @@ public class Opciones implements Serializable {
     private Opciones codigoSubmenu;
     @Column(name = "URL")
     private String url;
+
+    public Sistemas getIdSistema() {
+        return idSistema;
+    }
+
+    public void setIdSistema(Sistemas idSistema) {
+        this.idSistema = idSistema;
+    }
 
     public String getUrl() {
         return url;

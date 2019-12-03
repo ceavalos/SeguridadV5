@@ -8,6 +8,7 @@ package persistenciaSeguridad_ejb;
 import java.util.List;
 import javax.ejb.Local;
 import modelos_seguridad.Sistemas;
+import modelos_seguridad.Usuarios;
 
 /**
  *
@@ -29,5 +30,6 @@ public interface SistemasFacadeLocal {
     List<Sistemas> findRange(int[] range);
 
     int count();
+    
     
 }

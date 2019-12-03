@@ -32,7 +32,7 @@ public class LoginController implements Serializable{
     
     @PostConstruct
     public void init(){
-        usuario    =  new Usuarios();           
+        usuario    = new Usuarios();           
         emp        = new Empresa();             
         buscaEmpresa();                
     }
@@ -71,7 +71,7 @@ public class LoginController implements Serializable{
           //us = usuario_EJB.UsuarioIniciarSesion(usuario);
           us = usuario_EJB.UsuarioIniciarSesioneEmp(usuario, emp);
          if (us != null){
-             System.out.println("Entramos a validar " + us.getIdEmpresa().getIdEmpresa());
+             System.out.println("Entramos a LoginController.iniciarSesion metodovalidar empresa= " + us.getIdEmpresa().getIdEmpresa());
              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarios", us);
              redireccion = "/protegido/principal?faces-redirect=true"; 
          }else {
@@ -95,7 +95,8 @@ public class LoginController implements Serializable{
                empresaList.add(m.getIdEmpresa());
                //System.out.println("Estamos dentro  del if del loop " + m.getIdEmpresa().getIdEmpresa() );
            }
-       }*/       
+       }*/  
+      //System.out.println("Estamos en LoginController");
         empresaList = Empresa_EJB.findAll();
         return empresaList;
     }

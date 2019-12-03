@@ -5,10 +5,14 @@
  */
 package persistenciaSeguridad_ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelos_seguridad.Sistemas;
+import modelos_seguridad.Usuarios;
 
 /**
  *
@@ -28,5 +32,8 @@ public class SistemasFacade extends AbstractFacade<Sistemas> implements Sistemas
     public SistemasFacade() {
         super(Sistemas.class);
     }
+
+
+
     
 }

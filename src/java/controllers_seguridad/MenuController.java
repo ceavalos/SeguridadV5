@@ -12,13 +12,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import modelos_seguridad.Opciones;
+import modelos_seguridad.Sistemas;
 import modelos_seguridad.Usuarios;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 import persistenciaSeguridad_ejb.OpcionesFacadeLocal;
-
 
 @Named
 @SessionScoped
@@ -51,29 +51,15 @@ public class MenuController implements Serializable{
     };
         
     
-    public String nombreusuario(){
-        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        String nombre = us.getNombre();
-        return nombre;
-    }
-    
-    public String codigousuario(){
-        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        String codigo = us.getCodUsuario();
-        return codigo;
-    }
-    public String empresausuario(){
-        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        String nombre =  us.getIdEmpresa().getIdEmpresa()+" - "+ us.getIdEmpresa().getNombre();
-        return nombre;
-    }
     
     public void establecerPermisos(){
        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        //System.out.println("Empresa dentro de MenuController establecerPermisos "+us.getIdEmpresa().getIdEmpresa());      
-        
+       
+       Sistemas sis = (Sistemas) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("modulo");              
+       System.out.println("Dentro de MenuController establecerPermisos seleccionado " + sis.getNombreSistema());      
+       
         for (Opciones m : lista){
-         
+          if( m.getIdSistema().getIdSistema().equals(sis.getIdSistema())){                        
            if(m.getTipo().equals("S") && m.getIdEmpresa().getIdEmpresa().equals(us.getIdEmpresa().getIdEmpresa())){
                //System.out.println("Dentro del looop empresa= "+m.getIdEmpresa().getIdEmpresa());     
               DefaultSubMenu firstSubmenu = new DefaultSubMenu(m.getDescOpcion());  
@@ -96,7 +82,8 @@ public class MenuController implements Serializable{
                item.setUrl(m.getUrl());
                model.addElement(item);
                
-           }                     
+           }   
+          } //if( m.getIdSistema().getIdSistema().equals(sis.getIdSistema()))
         }      
     }
     
