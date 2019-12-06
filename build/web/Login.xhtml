@@ -14,29 +14,39 @@
                 <h:form>
                     <p:messages autoUpdate="true"  showDetail="true"/>
                    
-                    <p:fieldset >
+                    
                         <h:panelGrid columns="2">     
+                            
                             <p:column />
                             <p:imageSwitch effect="FlyIn">
                               <p:graphicImage value="/resources/imagenes/seguridadIcono.png" />   
                             </p:imageSwitch>                            
                             
+                                                        
                             <p:outputLabel for="txtUser"    value="User" />
-                            <p:inputText id="txtUser" value="#{loginController.usuario.codUsuario}" required="true" onchange=""/>               
-
+                            <p:inputText id="txtUser" value="#{loginController.usuario.codUsuario}" required="true">               
+                                <p:ajax event="change" update="IdEmpresa" listener="#{loginController.populateEmpresa()}"  process="@this" />
+                            </p:inputText>    
+                                                        
                             <p:outputLabel for="txtClave"  value="clave" />
                             <p:password id="txtClave"   value="#{loginController.usuario.clave}" required="true" />                                                
-                            
-                            <p:outputLabel for="IdEmpresa"    value="Seleccione Empresa" />
+                                                        
+                            <p:outputLabel for="IdEmpresa"    value="Empresa" />
                             <p:selectOneMenu id="IdEmpresa" value="#{loginController.emp.idEmpresa}">
                                 <f:selectItems value="#{loginController.empresaList}" var="emp1" itemLabel="#{emp1.nombre}" itemValue="#{emp1.idEmpresa}" />
+                                <p:ajax event="change" onstart="true"  partialSubmit="true"  update="IdRol" listener="#{loginController.populateRoles()}"  process="@this" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="IdRol"    value="Perfil" />
+                            <p:selectOneMenu id="IdRol"  value="#{loginController.roles.idRol}">
+                                <f:selectItems value="#{loginController.rolesList}" var="rol" itemLabel="#{rol.nombreRol}" itemValue="#{rol.idRol}" />
                             </p:selectOneMenu>
                             
                             <p:outputLabel value="" />
                             <p:commandButton value = "Iniciar Sesion"  action="#{loginController.iniciarSesion()}"  icon="ui-icon-key"/>  
 
                         </h:panelGrid>
-                    </p:fieldset>
+                    
                 </h:form>
             </div>
     </h:body>
