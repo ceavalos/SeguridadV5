@@ -98,13 +98,16 @@ public class LoginController implements Serializable{
     public String iniciarSesion(){
         Usuarios us; 
         String  redireccion = null;
-         System.out.println("Estamos en iniciar Sesion de LoginController");
+        Roles rolid = roles_EJB.find(this.role.getIdRol());
+        //System.out.println("Estamos en iniciar Sesion de LoginController");
         try {
           //us = usuario_EJB.UsuarioIniciarSesion(usuario);
           us = usuario_EJB.UsuarioIniciarSesioneEmp(usuario, emp);
          if (us != null){
-             System.out.println("Entramos a LoginController.iniciarSesion metodovalidar empresa= " + us.getIdEmpresa().getIdEmpresa());
+             //System.out.println("Entramos a LoginController.iniciarSesion metodovalidar empresa= " + us.getIdEmpresa().getIdEmpresa());
              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarios", us);
+             //System.out.println("Almacenando la variable del rol " + rolid.getNombreRol() );
+             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("rol", rolid);
              redireccion = "/protegido/principal?faces-redirect=true"; 
          }else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Aviso","Credenciales no validas"));    
@@ -125,10 +128,10 @@ public class LoginController implements Serializable{
     public List<Empresa> populateEmpresa(){
         List<Empresa> empresa  = Empresa_EJB.findAll();
         List<Usuarios> usuario = usuario_EJB.findAll();        
-        //System.out.println("Dentro de populateEmpresa Antes de empresaList.add(null) ");
+        System.out.println("Dentro de populateEmpresa Antes de empresaList.add(null) ");
         empresaList.clear();        
         for (Usuarios u : usuario){
-            //System.out.println(" dentro del for " + u.getCodUsuario()+ " usuario en variable " + this.usuario.getCodUsuario());
+            System.out.println(" dentro del for " + u.getCodUsuario()+ " usuario en variable " + this.usuario.getCodUsuario());
             if(u.getCodUsuario().equals(this.usuario.getCodUsuario())){
                 //System.out.println("Dentro del IF -- usurio entra a empresa "+u.getIdEmpresa().getNombre());
                 empresaList.add(u.getIdEmpresa());

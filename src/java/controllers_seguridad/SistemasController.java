@@ -52,21 +52,4 @@ public void almacenamodulo(Sistemas modulo){
     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("modulo", modulo);
 }
 
-
-    public String nombreusuario(){
-        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        String nombre = us.getNombre();
-        return nombre;
-    }
-    
-    public String codigousuario(){
-        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        String codigo = us.getCodUsuario();
-        return codigo;
-    }
-    public String empresausuario(){
-        Usuarios us = (Usuarios) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuarios");
-        String nombre =  us.getIdEmpresa().getIdEmpresa()+" - "+ us.getIdEmpresa().getNombre();
-        return nombre;
-    }
-}
+ }

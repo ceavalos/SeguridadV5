@@ -20,14 +20,14 @@
 
         <p:growl id="growl" life="6000"/>
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="100" header= "#{sistemasController.empresausuario()}" >
+        <p:layout fullPage="true">   
+            <p:layoutUnit position="north" size="100" header= "#{nombreSesiones.empresausuario()}" >
                 <!-- Menu here. Also a layout and a way to log a user out -->                
                 <ui:include src="/WEB-INF/include/appmenu.xhtml"/>
                 
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="60"  header="#{sistemasController.codigousuario()} -  #{sistemasController.nombreusuario()}" >
+            <p:layoutUnit position="south" size="60"  header="#{nombreSesiones.codigousuario()} -  #{nombreSesiones.nombreusuario()}  - [ #{nombreSesiones.nombrerol()} ] " >
                 <ui:insert name="footer"/>
             </p:layoutUnit>
 
