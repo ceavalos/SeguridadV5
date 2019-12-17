@@ -70,7 +70,12 @@ public class MenuController implements Serializable{
                if(submenu != null){
                    if (submenu.getIdOpcion() == m.getIdOpcion() && us.getEstado().equals("A") && m.getIdEmpresa().getIdEmpresa().equals(us.getIdEmpresa().getIdEmpresa()) ){
                        DefaultMenuItem item = new DefaultMenuItem (i.getDescOpcion());
-                       item.setUrl(i.getUrl());
+                       //item.setOutcome(i.getUrl());  
+                       //item.setUrl(i.getUrl());
+                       if (i.getUrl().length()>5){
+                          item.setOutcome(i.getUrl());
+                       }
+                       
                        firstSubmenu.addElement(item);
                    }                                      
                  }               
@@ -79,7 +84,11 @@ public class MenuController implements Serializable{
            }else if(m.getCodigoSubmenu() == null && m.getTipo().equals("I") && m.getIdEmpresa().getIdEmpresa().equals(us.getIdEmpresa().getIdEmpresa())){
                //System.out.println("Dentro del else empresa= "+m.getIdEmpresa().getIdEmpresa());     
                DefaultMenuItem item = new DefaultMenuItem (m.getDescOpcion());
-               item.setUrl(m.getUrl());
+               //item.setUrl(m.getUrl());
+               if (m.getUrl().length()>5){
+                   item.setOutcome(m.getUrl()); 
+               }
+               
                model.addElement(item);
                
            }   

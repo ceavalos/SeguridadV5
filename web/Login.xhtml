@@ -25,12 +25,15 @@
                                                         
                             <p:outputLabel for="txtUser"    value="User" />
                             <p:inputText id="txtUser" value="#{loginController.usuario.codUsuario}" required="true">                                           
-                              <p:ajax event="change" update="IdEmpresa" listener="#{loginController.populateEmpresa()}"  process="@this" />
+                              <p:ajax event="change" update="IdEmpresa" listener="#{loginController.populateEmpresa()}"  process="@this" />                              
                             </p:inputText>    
                                                         
                             <p:outputLabel for="txtClave"  value="clave" />
-                            <p:password id="txtClave"   value="#{loginController.usuario.clave}" required="true" />                                                
-                                                        
+                            
+                            <p:password id="txtClave"   value="#{loginController.usuario.clave}" required="true" >                        
+                               <p:ajax event="change" onstart="true"  partialSubmit="true"  update="IdRol" listener="#{loginController.populateRoles()}"  process="@this" />
+                            </p:password>
+                                
                             <p:outputLabel for="IdEmpresa"    value="Empresa" />
                             <p:selectOneMenu id="IdEmpresa" value="#{loginController.emp.idEmpresa}" required="true">
                                 <f:selectItems value="#{loginController.empresaList}" var="emp1" itemLabel="#{emp1.nombre}" itemValue="#{emp1.idEmpresa}" />

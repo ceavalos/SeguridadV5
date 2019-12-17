@@ -7,59 +7,33 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:form id="EmpresaListForm">
-
-        <p:panel header="#{myBundle.ListEmpresaTitle}">
-            <p:contextMenu id="EmpresaDataTableContextMenu" for="datalist">  
-                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EmpresaListForm:createButton').click();" icon="ui-icon-plus"/>
-                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EmpresaListForm:viewButton').click();" icon="ui-icon-search"/>
-                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EmpresaListForm:editButton').click();" icon="ui-icon-pencil"/>
-                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EmpresaListForm:deleteButton').click();" icon="ui-icon-trash"/>
-                <p:separator/>
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_sistemasRoleCollection}" icon="ui-icon-search"  action="#{empresaController.navigateSistemasRoleCollection}" disabled="#{empresaController.isSistemasRoleCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_opcionesRolesCollection}" icon="ui-icon-search"  action="#{empresaController.navigateOpcionesRolesCollection}" disabled="#{empresaController.isOpcionesRolesCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_rolesCollection}" icon="ui-icon-search"  action="#{empresaController.navigateRolesCollection}" disabled="#{empresaController.isRolesCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_opcionesCollection}" icon="ui-icon-search"  action="#{empresaController.navigateOpcionesCollection}" disabled="#{empresaController.isOpcionesCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_usuariosCollection}" icon="ui-icon-search"  action="#{empresaController.navigateUsuariosCollection}" disabled="#{empresaController.isUsuariosCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_sistemasCollection}" icon="ui-icon-search"  action="#{empresaController.navigateSistemasCollection}" disabled="#{empresaController.isSistemasCollectionEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.EmpresaMenuItem_usuariosRolesCollection}" icon="ui-icon-search"  action="#{empresaController.navigateUsuariosRolesCollection}" disabled="#{empresaController.isUsuariosRolesCollectionEmpty}" ajax="false"/>  
-            </p:contextMenu>
+        <p:panel header="#{nombreSesiones.nombremodulo()}">
+            <p:commandButton id="createButton"   title="Adicionar registro"
+                             icon="ui-icon-plus"   value="Adicionar" actionListener="#{empresaController.prepareCreate}" 
+                             />
+            
             <p:dataTable id="datalist"
-                         value="#{empresaController.items}"
+                         value="#{empresaController.listado}"
                          lazy="false"
-                         rowKey="#{item.idEmpresa}"
                          var="item"
+                         rowKey="#{item.idEmpresa}"                          
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{empresaController.selected}"
-                         filteredValue="#{empresaController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
+                         selectionMode="single"     
+                         
+                         > 
                 
-                         value="HASH{empresaController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idEmpresa}"  <<< Remove this line
-                -->
-
-
-                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpresaDataTableContextMenu"/>
-                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpresaDataTableContextMenu"/>
-                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
-                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EmpresaListForm:viewButton').click();"/>
-
                 <p:column sortBy="#{item.idEmpresa}" filterBy="#{item.idEmpresa}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListEmpresaTitle_idEmpresa}"/>
+                        <h:outputText value="Id_Empresa"/>
                     </f:facet>
                     <h:outputText value="#{item.idEmpresa}"/>
                 </p:column>
-
-
-                <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
+                
+                 <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListEmpresaTitle_nombre}"/>
+                        <h:outputText value="Nombre Empresa"/>
                     </f:facet>
                     <h:outputText value="#{item.nombre}"/>
                 </p:column>
@@ -67,23 +41,22 @@
 
                 <p:column sortBy="#{item.direccion}" filterBy="#{item.direccion}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListEmpresaTitle_direccion}"/>
+                        <h:outputText value="Direccion"/>
                     </f:facet>
                     <h:outputText value="#{item.direccion}"/>
                 </p:column>
-
-
+                
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Accion"/>
+                    </f:facet>
+                    <p:commandButton id="editButton" icon="ui-icon-pencil"   title="Editar registro" actionListener="#{empresaController.Edit}" />
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  title= "Eliminar registro"   />
+                    <p:commandButton id="viewButton" icon="ui-icon-search"  oncomplete="PF('EmpresaViewDialog').show()"  title= "Ver registro"  />
+                </p:column>
+                
             </p:dataTable>
-
-            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{empresaController.prepareCreate}" update=":EmpresaCreateForm" oncomplete="PF('EmpresaCreateDialog').show()"/>
-            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty empresaController.selected}"/>
-            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EmpresaEditForm" oncomplete="PF('EmpresaEditDialog').show()" disabled="#{empty empresaController.selected}"/>
-            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{empresaController.delete}" update=":growl,datalist" disabled="#{empty empresaController.selected}">
-                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
-            </p:commandButton>
-
-        </p:panel>
-        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+        </p:panel>        
     </h:form>
 
 </ui:composition>
