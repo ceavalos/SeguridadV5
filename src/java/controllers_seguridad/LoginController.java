@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import modelos_seguridad.Empresa;
 import modelos_seguridad.Roles;
@@ -30,6 +31,7 @@ public class LoginController implements Serializable{
     RolesFacadeLocal roles_EJB;
     @EJB
     UsuariosRolesFacadeLocal user_rolEJB;
+    
     
     private Usuarios usuario;
     

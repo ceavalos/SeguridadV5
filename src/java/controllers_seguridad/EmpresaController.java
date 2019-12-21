@@ -5,7 +5,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import modelos_seguridad.Empresa;
@@ -22,7 +26,7 @@ public class EmpresaController implements Serializable{
     @Inject
     Empresa empresa;
     
-   
+  
     List<Empresa> listado;
 
     public List<Empresa> getListado() {
@@ -67,4 +71,9 @@ public class EmpresaController implements Serializable{
     public void llenartabla(){
         listado = empresaEJB.findAll();
     }
+    
+   
+    
+   
+    
 }

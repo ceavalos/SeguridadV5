@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition>
-        <p:dialog id="EmpresaEditDlg" widgetVar="EmpresaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEmpresaTitle}" closeOnEscape="true">
+    <p:dialog id="EmpresaEditDlg" widgetVar="EmpresaEditDialog" modal="true" resizable="false"  
+               appendTo="@(body)" header="Edicion de Empresas" closeOnEscape="true">
+         <h:form id="EmpresaEditForm">
+            <p:panel id="display" rendered="true" header="Edicion de Empresas">
+                 <h:panelGrid columns="2"> 
+                     
+                     <h:outputText value = "Id_Empresa"  />
+                     <h:outputText value = "#{crudEmpresa.empresa.idEmpresa}"  />
+                     
+                     <h:outputText value = "Nombre Empresa"  />
+                     <h:inputText value = "#{crudEmpresa.empresa.nombre}" required="true" requiredMessage="Nombre empresa Obligatorio" size="100" maxlength="100" />
+                     
+                     <h:outputText value = "Direccion Empresa"  />
+                     <h:inputText value = "#{crudEmpresa.empresa.direccion}" required="true" requiredMessage="Direccion empresa Obligatorio" size="100" maxlength="100" />                     
+                    
+                 </h:panelGrid>                         
+            </p:panel>   
+             
+                <p:commandButton actionListener="#{crudEmpresa.update()}" value="Guardar"  
+                                 update="display,:EmpresaListForm:datalist,:growl"                                  
+                                 oncomplete="handleSubmit(xhr,status,args,PF('EmpresaEditDialog'));">
+                        <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/> 
+                </p:commandButton> 		 
+             
+                <p:commandButton value="Cancelar" oncomplete="PF('EmpresaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                  
+        </h:form>
+    </p:dialog>
 
-            <h:form id="EmpresaEditForm">
-
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{empresaController.selected != null}">
-
-
-                        <h:outputLabel value="#{myBundle.EditEmpresaLabel_idEmpresa}" for="idEmpresa" />
-                        <h:outputText id="idEmpresa" value="#{empresaController.selected.idEmpresa}" />
-
-                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{empresaController.selected.nombre}" title="#{myBundle.EditEmpresaTitle_nombre}" required="true" requiredMessage="#{myBundle.EditEmpresaRequiredMessage_nombre}" size="100" maxlength="100"/>
-
-                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{empresaController.selected.direccion}" title="#{myBundle.EditEmpresaTitle_direccion}" required="true" requiredMessage="#{myBundle.EditEmpresaRequiredMessage_direccion}" size="100" maxlength="100"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{empresaController.save}" value="#{myBundle.Save}" update="display,:EmpresaListForm:datalist,:EmpresaListForm:EmpresaDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpresaEditDialog'));">
-                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
-                    </p:commandButton>
-                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EmpresaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
-            </h:form>
-
-        </p:dialog>
-
-    </ui:composition>
-
-</html>
+</ui:composition>

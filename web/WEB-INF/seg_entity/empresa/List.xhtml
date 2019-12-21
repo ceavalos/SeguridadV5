@@ -7,24 +7,21 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:form id="EmpresaListForm">
-        <p:panel header="#{nombreSesiones.nombremodulo()}">
-            <p:commandButton id="createButton"   title="Adicionar registro"
-                             icon="ui-icon-plus"   value="Adicionar" actionListener="#{empresaController.prepareCreate}" 
-                             />
-            
-            <p:dataTable id="datalist"
-                         value="#{empresaController.listado}"
+        <p:panel header="Mantenimiento de empresas">
+            <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
+
+           <p:dataTable id="datalist"
+                        value="#{crudEmpresa.empresas}"
                          lazy="false"
                          var="item"
                          rowKey="#{item.idEmpresa}"                          
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"     
+                         selectionMode="single"    
                          
                          > 
-                
-                <p:column sortBy="#{item.idEmpresa}" filterBy="#{item.idEmpresa}">
+                 <p:column sortBy="#{item.idEmpresa}" filterBy="#{item.idEmpresa}">
                     <f:facet name="header">
                         <h:outputText value="Id_Empresa"/>
                     </f:facet>
@@ -50,13 +47,27 @@
                     <f:facet name="header">
                         <h:outputText value="Accion"/>
                     </f:facet>
-                    <p:commandButton id="editButton" icon="ui-icon-pencil"   title="Editar registro" actionListener="#{empresaController.Edit}" />
-                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  title= "Eliminar registro"   />
-                    <p:commandButton id="viewButton" icon="ui-icon-search"  oncomplete="PF('EmpresaViewDialog').show()"  title= "Ver registro"  />
+                 
+                    <p:commandButton id="editButton" 
+                         icon="ui-icon-pencil"  update=":EmpresaEditForm" 
+                         actionListener="#{crudEmpresa.asignar(item)}"
+                         oncomplete="PF('EmpresaEditDialog').show()"/>
+                     
+                    <p:commandButton id="deleteButton"  icon="ui-icon-trash"   actionListener="#{crudEmpresa.eliminar(item)}" 
+                                     update=":growl,:EmpresaListForm:datalist" >
+                        <p:confirm header="Confirmacion" message="Desea Eliminar el registro" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    
                 </p:column>
-                
-            </p:dataTable>
-        </p:panel>        
+
+            </p:dataTable>        
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudEmpresa.prepareCreate()}" 
+                              oncomplete="PF('EmpresaCreateDialog').show()"/>             
+        </p:panel> 
+        
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+        
     </h:form>
 
 </ui:composition>

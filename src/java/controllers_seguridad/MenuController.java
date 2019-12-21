@@ -58,12 +58,20 @@ public class MenuController implements Serializable{
        Sistemas sis = (Sistemas) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("modulo");              
        System.out.println("Dentro de MenuController establecerPermisos seleccionado " + sis.getNombreSistema());      
        
+         //menu de Home
+          DefaultMenuItem home = new DefaultMenuItem ("HOME");
+          home.setOutcome("/protegido/principal.xhtml");
+          home.setIcon("ui-icon-home");
+          model.addElement(home);
+              
         for (Opciones m : lista){
           if( m.getIdSistema().getIdSistema().equals(sis.getIdSistema())){                        
            if(m.getTipo().equals("S") && m.getIdEmpresa().getIdEmpresa().equals(us.getIdEmpresa().getIdEmpresa())){
                //System.out.println("Dentro del looop empresa= "+m.getIdEmpresa().getIdEmpresa());     
               DefaultSubMenu firstSubmenu = new DefaultSubMenu(m.getDescOpcion());  
               
+              
+                      
               for(Opciones i : lista){
                Opciones submenu = i.getCodigoSubmenu();
                
