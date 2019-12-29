@@ -8,29 +8,23 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuariosViewDlg" widgetVar="UsuariosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewUsuariosTitle}" closeOnEscape="true">
+        <p:dialog id="EmpresaViewDlg" widgetVar="EmpresaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="Ver Informacion Empresa" closeOnEscape="true">
 
-            <h:form id="UsuariosViewForm">
+            <h:form id="EmpresaViewForm">
 
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuariosController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{empresaController.selected != null}">
 
-                        <h:outputText value="#{myBundle.ViewUsuariosLabel_idUsuario}"/>
-                        <h:outputText value="#{usuariosController.selected.idUsuario}" title="#{myBundle.ViewUsuariosTitle_idUsuario}"/>
+                        <h:outputText value="Id_Empresa"/>
+                        <h:outputText value="#{empresaController.selected.idEmpresa}" title="Id_Empresa"/>
 
-                        <h:outputText value="#{myBundle.ViewUsuariosLabel_codUsuario}"/>
-                        <h:outputText value="#{usuariosController.selected.codUsuario}" title="#{myBundle.ViewUsuariosTitle_codUsuario}"/>
+                        <h:outputText value="Nombre de empresa"/>
+                        <h:outputText value="#{empresaController.selected.nombre}" title="Nombre de empresa"/>
 
-                        <h:outputText value="#{myBundle.ViewUsuariosLabel_clave}"/>
-                        <h:outputText value="#{usuariosController.selected.clave}" title="#{myBundle.ViewUsuariosTitle_clave}"/>
-
-                        <h:outputText value="#{myBundle.ViewUsuariosLabel_estado}"/>
-                        <h:outputText value="#{usuariosController.selected.estado}" title="#{myBundle.ViewUsuariosTitle_estado}"/>
-
-                        <h:outputText value="#{myBundle.ViewUsuariosLabel_idEmpresa}"/>
-                        <h:outputText value="#{usuariosController.selected.idEmpresa.idEmpresa}"/>
+                        <h:outputText value="Direccion"/>
+                        <h:outputText value="#{empresaController.selected.direccion}" title="Direccion"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{myBundle.Close}" onclick="PF('UsuariosViewDialog').hide()"/>
+                    <p:commandButton value="Cerrar Ventana" onclick="PF('EmpresaViewDialog').hide()"/>
                 </h:panelGroup>
 
             </h:form>

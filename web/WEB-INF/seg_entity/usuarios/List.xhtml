@@ -6,95 +6,78 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="UsuariosListForm">
-
-        <p:panel header="#{myBundle.ListUsuariosTitle}">
-            <p:contextMenu id="UsuariosDataTableContextMenu" for="datalist">  
-                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('UsuariosListForm:createButton').click();" icon="ui-icon-plus"/>
-                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('UsuariosListForm:viewButton').click();" icon="ui-icon-search"/>
-                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('UsuariosListForm:editButton').click();" icon="ui-icon-pencil"/>
-                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('UsuariosListForm:deleteButton').click();" icon="ui-icon-trash"/>
-                <p:separator/>
-                <p:menuitem value="#{myBundle.UsuariosMenuItem_idEmpresa}" icon="ui-icon-search"  actionListener="#{usuariosController.prepareIdEmpresa}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty usuariosController.selected.idEmpresa}"/>  
-                <p:menuitem value="#{myBundle.UsuariosMenuItem_usuariosRolesCollection}" icon="ui-icon-search"  action="#{usuariosController.navigateUsuariosRolesCollection}" disabled="#{usuariosController.isUsuariosRolesCollectionEmpty}" ajax="false"/>  
-            </p:contextMenu>
+    <h:form id="ListForm">
+        <p:panel header="Mantenimiento de Usuarios">
+            <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
+             
             <p:dataTable id="datalist"
-                         value="#{usuariosController.items}"
+                        value="#{crudUsuarios.usuarios}"
                          lazy="false"
-                         rowKey="#{item.idUsuario}"
                          var="item"
+                         rowKey="#{item.codUsuario}"                          
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
-                         selectionMode="single"
-                         selection="#{usuariosController.selected}"
-                         filteredValue="#{usuariosController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{usuariosController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.idUsuario}"  <<< Remove this line
-                -->
-
-
-                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuariosDataTableContextMenu" listener="#{usuariosController.resetParents}"/>
-                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuariosDataTableContextMenu" listener="#{usuariosController.resetParents}"/>
-                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{usuariosController.resetParents}"/>
-                <p:ajax event="rowDblselect" onsuccess="document.getElementById('UsuariosListForm:viewButton').click();"/>
-
-                <p:column sortBy="#{item.idUsuario}" filterBy="#{item.idUsuario}">
-                    <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListUsuariosTitle_idUsuario}"/>
+                         selectionMode="single"                             
+                         > 
+    
+                <p:column sortBy="#{item.idEmpresa.nombre}" filterBy="#{item.idEmpresa.nombre}">                   
+                   <f:facet name="header">
+                        <h:outputText value="Empresa"/>
                     </f:facet>
-                    <h:outputText value="#{item.idUsuario}"/>
+                   <h:outputText value="#{item.idEmpresa.nombre}"/>
                 </p:column>
-
-
+    
                 <p:column sortBy="#{item.codUsuario}" filterBy="#{item.codUsuario}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListUsuariosTitle_codUsuario}"/>
+                        <h:outputText value="Id_Usuario"/>
                     </f:facet>
-                    <h:outputText value="#{item.codUsuario}"/>
+                   <h:outputText value="#{item.codUsuario}"/>
                 </p:column>
-
-
-                <p:column sortBy="#{item.clave}" filterBy="#{item.clave}">
+                
+               <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListUsuariosTitle_clave}"/>
+                        <h:outputText value="Nombre Usuario"/>
                     </f:facet>
-                    <h:outputText value="#{item.clave}"/>
+                    <h:outputText value="#{item.nombre}"/>
                 </p:column>
 
 
-                <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+               <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListUsuariosTitle_estado}"/>
+                        <h:outputText value="Estado"/>
                     </f:facet>
-                    <h:outputText value="#{item.estado}"/>
+                   <h:outputText value="#{item.estado}"/>
                 </p:column>
-
-
-                <p:column sortBy="#{item.idEmpresa.idEmpresa}" filterBy="#{item.idEmpresa.idEmpresa}">
+    
+                <p:column >
                     <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListUsuariosTitle_idEmpresa}"/>
+                        <h:outputText value="Accion"/>
                     </f:facet>
-                    <h:outputText value="#{item.idEmpresa.idEmpresa}"/>
+                  
+                    <p:commandButton id="editButton" 
+                         icon="ui-icon-pencil"  update=":EditForm"                          
+                         actionListener="#{crudUsuarios.asignar(item)}"
+                         oncomplete="PF('EditDialog').show()"/>
+                     
+                    <p:commandButton id="deleteButton"  icon="ui-icon-trash"   actionListener="#{crudUsuarios.eliminar(item)}" 
+                                     update=":growl,:ListForm:datalist" >
+                        <p:confirm header="Confirmacion" message="Desea Eliminar el registro" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                     
                 </p:column>
 
-
-            </p:dataTable>
-
-            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{usuariosController.prepareCreate}" update=":UsuariosCreateForm" oncomplete="PF('UsuariosCreateDialog').show()"/>
-            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":UsuariosViewForm" oncomplete="PF('UsuariosViewDialog').show()" disabled="#{empty usuariosController.selected}"/>
-            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":UsuariosEditForm" oncomplete="PF('UsuariosEditDialog').show()" disabled="#{empty usuariosController.selected}"/>
-            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{usuariosController.delete}" update=":growl,datalist" disabled="#{empty usuariosController.selected}">
-                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
-            </p:commandButton>
-
-        </p:panel>
+        </p:dataTable>        
+            
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudUsuarios.prepareCreate()}" 
+                              oncomplete="PF('CreateDialog').show()"/>             
+                    
+            
+        </p:panel> 
+            
         <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+        
     </h:form>
 
 </ui:composition>

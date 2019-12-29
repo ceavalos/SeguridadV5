@@ -1,53 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition>
-        <p:dialog id="UsuariosEditDlg" widgetVar="UsuariosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsuariosTitle}" closeOnEscape="true">
+    <p:dialog id="EditDlg" widgetVar="EditDialog" modal="true" resizable="false"  
+               appendTo="@(body)" header="Edicion de Usuarios" closeOnEscape="true">
+         <h:form id="EditForm">
+            <p:panel id="display" rendered="true" header="Edicion de Usuarios">
+                 <h:panelGrid columns="2"> 
+                     
+                   <h:outputText value = "Codigo Usuario"  />
+                        <h:inputText value = "#{crudUsuarios.usuario.codUsuario}"  required="true" requiredMessage="El codigo de usuario es obligatorio" size="100" maxlength="100"/>
 
-            <h:form id="UsuariosEditForm">
-
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuariosController.selected != null}">
-
-
-                        <h:outputLabel value="#{myBundle.EditUsuariosLabel_idUsuario}" for="idUsuario" />
-                        <h:outputText id="idUsuario" value="#{usuariosController.selected.idUsuario}" />
-
-                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_codUsuario}" for="codUsuario" />
-                        <p:inputText id="codUsuario" value="#{usuariosController.selected.codUsuario}" title="#{myBundle.EditUsuariosTitle_codUsuario}" size="100" maxlength="100"/>
-
-                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_clave}" for="clave" />
-                        <p:inputText id="clave" value="#{usuariosController.selected.clave}" title="#{myBundle.EditUsuariosTitle_clave}" size="100" maxlength="100"/>
-
-                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_estado}" for="estado" />
-                        <p:inputText id="estado" value="#{usuariosController.selected.estado}" title="#{myBundle.EditUsuariosTitle_estado}" required="true" requiredMessage="#{myBundle.EditUsuariosRequiredMessage_estado}" size="1" maxlength="1"/>
-
-                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_idEmpresa}" for="idEmpresa" />
-                        <p:selectOneMenu id="idEmpresa" value="#{usuariosController.selected.idEmpresa}"  converter="empresaConverter">
-                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{empresaController.items}"
-                                           var="idEmpresaItem"
-                                           itemValue="#{idEmpresaItem}"
-                                           itemLabel="#{idEmpresaItem.idEmpresa.toString()}"
-                                           />
-
+                        <h:outputText value = "Nombre Usuario"  />
+                        <h:inputText value = "#{crudUsuarios.usuario.nombre}" required="true" requiredMessage="El Nombre de usuario es obligatorio" size="100" maxlength="100" />                         
+                       
+                        <h:outputText value = "Clave"  />
+                        <p:password value = "#{crudUsuarios.usuario.clave}" required="true" requiredMessage="Clave de usuario es obligatorio" size="100" maxlength="100" />                                                
+                        
+                        <h:outputText value = "Estado"  />
+                        <p:selectOneMenu id="IdEstado" value="#{crudUsuarios.usuario.estado}" required="true"  var="item" requiredMessage="El estado de Usuario es obligatorio">
+                            <f:selectItem itemLabel="Activo" itemValue="A" />
+                            <f:selectItem itemLabel="Inactivo" itemValue="I" />
                         </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuariosController.save}" value="#{myBundle.Save}" update="display,:UsuariosListForm:datalist,:UsuariosListForm:UsuariosDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosEditDialog'));">
-                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
-                    </p:commandButton>
-                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuariosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
+                        
+                    
+                 </h:panelGrid>                         
+            </p:panel>   
+             
+             <p:commandButton actionListener="#{crudUsuarios.update()}" value="Guardar"  
+                                 update="display,:ListForm:datalist,:growl"                                  
+                                 oncomplete="handleSubmit(xhr,status,args,PF('EditDialog'));">
+                        <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/> 
+                </p:commandButton> 		 
+             
+                <p:commandButton value="Cancelar" oncomplete="PF('EditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                  
+        </h:form>
+    </p:dialog>
 
-            </h:form>
-
-        </p:dialog>
-
-    </ui:composition>
-
-</html>
+</ui:composition>

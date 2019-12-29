@@ -24,7 +24,7 @@ public class CrudEmpresa implements Serializable{
   private List<Empresa> empresas;  
   
  @Inject  
-  private  Empresa empresa;
+  private Empresa empresa;
 
   @PostConstruct
   private void init(){

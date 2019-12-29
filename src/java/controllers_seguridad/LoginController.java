@@ -134,11 +134,12 @@ public class LoginController implements Serializable{
         empresaList.clear();        
         for (Usuarios u : usuario){
             System.out.println(" dentro del for " + u.getCodUsuario()+ " usuario en variable " + this.usuario.getCodUsuario());
-            if(u.getCodUsuario().equals(this.usuario.getCodUsuario())){
+            if(u.getCodUsuario().equals(this.usuario.getCodUsuario()) && u.getEstado().equals("A") ){
                 //System.out.println("Dentro del IF -- usurio entra a empresa "+u.getIdEmpresa().getNombre());
                 empresaList.add(u.getIdEmpresa());
             }
         }        
+        populateRoles();
         return empresaList;
     };
    
@@ -147,7 +148,8 @@ public class LoginController implements Serializable{
         List<Roles>    roles        = roles_EJB.findAll();           
         List<UsuariosRoles> userRol = user_rolEJB.findAll();
         
-        rolesList.clear();         
+        rolesList.clear();   
+        
         
         //Seleccionando del listado el usuario introducico
         for (Usuarios u : usuario){
