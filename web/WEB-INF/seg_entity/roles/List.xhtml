@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ListForm">
+        <p:panel header="Mantenimiento de Roles">
+            <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
+             
+            <p:dataTable id="datalist"
+                         value="#{crudRoles.sistemas}"
+                         lazy="false"
+                         var="item"
+                         rowKey="#{item.idRol}"                          
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"                             
+                         > 
+    
+               <p:column sortBy="#{item.idEmpresa.nombre}" filterBy="#{item.idEmpresa.nombre}">                   
+                   <f:facet name="header">
+                        <h:outputText value="Empresa"/>
+                    </f:facet>
+                   <h:outputText value="#{item.idEmpresa.nombre}"/>
+                </p:column>
+ 
+                <p:column sortBy="#{item.nombreRol}" filterBy="#{item.nombreRol}">
+                    <f:facet name="header">
+                        <h:outputText value="Nombre de Rol"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreRol}"/>
+                </p:column>
+ 
+               <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                    <f:facet name="header">
+                        <h:outputText value="Estado de Rol"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estado}"/>
+                </p:column>
+ 
+                               <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Accion"/>
+                    </f:facet>
+                  
+                    <p:commandButton id="editButton" 
+                         icon="ui-icon-pencil"  update=":EditForm"                          
+                         actionListener="#{crudRoles.asignar(item)}"
+                         oncomplete="PF('EditDialog').show()" />
+                     
+                    <p:commandButton id="deleteButton"  icon="ui-icon-trash"   actionListener="#{crudRoles.eliminar(item)}" 
+                                     update=":growl,:ListForm:datalist" >
+                        <p:confirm header="Confirmacion" message="Desea Eliminar el registro" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                     
+                </p:column>
+
+                
+        </p:dataTable>        
+            
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudRoles.prepareCreate()}" 
+                              oncomplete="PF('CreateDialog').show()"/>             
+                    
+            
+        </p:panel> 
+            
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+        
+    </h:form>
+
+</ui:composition>

@@ -61,7 +61,7 @@ public class MenuController implements Serializable{
          //menu de Home
           DefaultMenuItem home = new DefaultMenuItem ("HOME");
           home.setOutcome("/protegido/principal.xhtml");
-          home.setIcon("ui-icon-home");
+          home.setIcon("ui-icon-home");          
           model.addElement(home);
               
         for (Opciones m : lista){

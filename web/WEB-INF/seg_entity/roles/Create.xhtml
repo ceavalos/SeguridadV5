@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="CreateDlg" widgetVar="CreateDialog" modal="true" 
+                 resizable="false" appendTo="@(body)"                  
+                 header="Creacion de Roles" closeOnEscape="true">
+   
+         <h:form id="CreateForm">
+
+                <h:panelGroup id="display" rendered="true">                    
+                      <p:panelGrid columns="2" columnClasses="column">
+                       
+                        <p:outputLabel  value="Id_Empresa" />                        
+                        <p:selectOneMenu id="IdEmpresa" value="#{crudRoles.sistema.idEmpresa}" required="true" 
+                                         converter="empresaConverter" 
+                                         requiredMessage="La empresa es obligatoria">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                          
+                        </p:selectOneMenu>
+                                                
+                        <h:outputText value = "Nombre de Rol"  />
+                        <h:inputText value = "#{crudRoles.sistema.nombreRol}"  required="true" requiredMessage="El nombre del Rol es obligatorio" size="100" maxlength="100"/>
+                        
+                        <h:outputText value = "Estado"  />
+                        <p:selectOneMenu id="IdEstado" value="#{crudRoles.sistema.estado}" required="true"                                           
+                                         var="item" requiredMessage="El estado del Rol es obligatorio">
+                            <f:selectItem itemLabel="Activo" itemValue="A" />
+                            <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                        </p:selectOneMenu>
+                            
+                      </p:panelGrid>                              
+                        
+                       <p:commandButton actionListener ="#{crudRoles.almacenar()}" value="Almacenar"  
+                                         update="display,:ListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CreateDialog'));" >
+                            <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/>                                                                     
+                        </p:commandButton>
+
+                    <p:commandButton value="Cancelar" oncomplete="PF('CreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    
+                </h:panelGroup>
+              
+             
+            </h:form>
+    
+       </p:dialog>  
+</ui:composition>

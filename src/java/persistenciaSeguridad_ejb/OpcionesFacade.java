@@ -49,4 +49,20 @@ public class OpcionesFacade extends AbstractFacade<Opciones> implements Opciones
       return opt;
                 
     }
+    @Override
+    public List<Opciones> buscarSubmenu(){
+     
+        List<Opciones> opt;
+        String consulta;
+        try {
+            consulta = "FROM Opciones u WHERE tipo='S' ";           
+            Query query = em.createQuery(consulta);
+            
+            List<Opciones> lista = query.getResultList();
+            opt = lista;
+        } catch (Exception e) {
+            throw e;
+        } 
+      return opt;
+    }
 }

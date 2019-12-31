@@ -40,7 +40,7 @@ public void ValidaModulos(){
    sistemas = new ArrayList<Sistemas>();
    
    for (Sistemas m: modulos){
-       if( m.getIdEmpresa().getIdEmpresa().equals(us.getIdEmpresa().getIdEmpresa()) ){
+       if( m.getIdEmpresa().getIdEmpresa().equals(us.getIdEmpresa().getIdEmpresa()) && m.getEstado().equals("A") ){
            //System.out.println("Estamos dentro de SistemasController - valdar");
            sistemas.add(m);
        }

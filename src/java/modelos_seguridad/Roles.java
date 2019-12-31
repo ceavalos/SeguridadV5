@@ -56,6 +56,21 @@ public class Roles implements Serializable {
     @ManyToOne
     private Empresa idEmpresa;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "ESTADO")
+    private String estado;
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
     public Roles() {
     }
 

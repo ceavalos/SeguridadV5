@@ -167,8 +167,8 @@ public class LoginController implements Serializable{
                      System.out.println("Entramos a validar Rol y empresa... solo falta asignar "+userrol.getIdEmpresa().getIdEmpresa() + " rol " +userrol.getIdRol());
                      for (Roles r: roles){
                          System.out.println("Dentro del loop de roles " + r.getIdEmpresa().getIdEmpresa() + " rol = "+r.getIdRol() ) ;
-                         if(   r.getIdEmpresa().getIdEmpresa().equals(userrol.getIdEmpresa().getIdEmpresa())
-                            && r.getIdRol().equals(userrol.getIdRol())
+                         if(   r.getIdEmpresa().getIdEmpresa().equals(userrol.getIdEmpresa().getIdEmpresa() )
+                            && r.getIdRol().equals(userrol.getIdRol()) && r.getEstado().equals("A")
                                  ){
                              System.out.println("Correr Desnudos por la casa Cesar Cansino!! ");
                              rolesList.add(r);

@@ -32,4 +32,5 @@ public interface OpcionesFacadeLocal {
     
     List<Opciones> buscarAll();
     
+    List<Opciones> buscarSubmenu();
 }
