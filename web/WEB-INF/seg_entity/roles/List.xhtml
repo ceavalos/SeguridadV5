@@ -9,7 +9,11 @@
     <h:form id="ListForm">
         <p:panel header="Mantenimiento de Roles">
             <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
-             
+            
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudRoles.prepareCreate()}" 
+                              oncomplete="PF('CreateDialog').show()"/>             
+              
             <p:dataTable id="datalist"
                          value="#{crudRoles.sistemas}"
                          lazy="false"
@@ -61,12 +65,7 @@
 
                 
         </p:dataTable>        
-            
-            <p:commandButton id="createButton"  icon="ui-icon-plus"   
-                             value="Adicionar" actionListener="#{crudRoles.prepareCreate()}" 
-                              oncomplete="PF('CreateDialog').show()"/>             
-                    
-            
+                        
         </p:panel> 
             
         <ui:include src="/WEB-INF/include/confirmation.xhtml"/>

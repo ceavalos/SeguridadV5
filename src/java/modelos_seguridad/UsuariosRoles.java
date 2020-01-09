@@ -38,11 +38,15 @@ public class UsuariosRoles implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_USER_ROLE")
     private Integer idUserRole;
-    @Column(name = "ID_ROL")
-    private Integer idRol;
+    
+    @JoinColumn(name = "ID_ROL", referencedColumnName = "ID_ROL")
+    @ManyToOne
+    private Roles idRol;
+    
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID_EMPRESA")
     @ManyToOne
     private Empresa idEmpresa;
+    
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
     private Usuarios idUsuario;
@@ -62,11 +66,11 @@ public class UsuariosRoles implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public Integer getIdRol() {
+    public Roles getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(Integer idRol) {
+    public void setIdRol(Roles idRol) {
         this.idRol = idRol;
     }
 

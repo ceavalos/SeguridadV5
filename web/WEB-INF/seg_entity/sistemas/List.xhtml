@@ -9,7 +9,12 @@
     <h:form id="ListForm">
         <p:panel header="Mantenimiento de Sistemas">
             <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
-             
+            
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudSistemas.prepareCreate()}" 
+                              oncomplete="PF('CreateDialog').show()"/>             
+           
+ 
             <p:dataTable id="datalist"
                          value="#{crudSistemas.sistemas}"
                          lazy="false"
@@ -82,13 +87,7 @@
                 </p:column>
                 
         </p:dataTable>        
-            
-            <p:commandButton id="createButton"  icon="ui-icon-plus"   
-                             value="Adicionar" actionListener="#{crudSistemas.prepareCreate()}" 
-                              oncomplete="PF('CreateDialog').show()"/>             
-                    
-              
-            
+                        
         </p:panel> 
             
         <ui:include src="/WEB-INF/include/confirmation.xhtml"/>

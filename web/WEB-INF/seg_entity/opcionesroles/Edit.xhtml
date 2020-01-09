@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="EditDlg" widgetVar="EditDialog" modal="true" resizable="false"  
+               appendTo="@(body)" header="Edicion de Usuarios" closeOnEscape="true">
+         <h:form id="EditForm">
+            <p:panel id="display" rendered="true" header="Edicion de Usuarios">
+                 <h:panelGrid columns="2"> 
+                     
+                   <h:outputText value = "Codigo Usuario"  />
+                        <h:inputText value = "#{crudUsuarios.usuario.codUsuario}"  required="true" requiredMessage="El codigo de usuario es obligatorio" size="100" maxlength="100"/>
+
+                        <h:outputText value = "Nombre Usuario"  />
+                        <h:inputText value = "#{crudUsuarios.usuario.nombre}" required="true" requiredMessage="El Nombre de usuario es obligatorio" size="100" maxlength="100" />                         
+                       
+                        <h:outputText value = "Clave"  />
+                        <p:password value = "#{crudUsuarios.usuario.clave}" required="true" requiredMessage="Clave de usuario es obligatorio" size="100" maxlength="100" />                                                
+                        
+                        <h:outputText value = "Estado"  />
+                        <p:selectOneMenu id="IdEstado" value="#{crudUsuarios.usuario.estado}" required="true"  var="item" requiredMessage="El estado de Usuario es obligatorio">
+                            <f:selectItem itemLabel="Activo" itemValue="A" />
+                            <f:selectItem itemLabel="Inactivo" itemValue="I" />
+                        </p:selectOneMenu>
+                        
+                    
+                 </h:panelGrid>                         
+            </p:panel>   
+             
+             <p:commandButton actionListener="#{crudUsuarios.update()}" value="Guardar"  
+                                 update="display,:ListForm:datalist,:growl"                                  
+                                 oncomplete="handleSubmit(xhr,status,args,PF('EditDialog'));">
+                        <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/> 
+                </p:commandButton> 		 
+             
+                <p:commandButton value="Cancelar" oncomplete="PF('EditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                  
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:form id="ListForm">
-        <p:panel header="Mantenimiento de Usuarios">
+        <p:panel header="Mantenimiento de Usuarios por Roles">
         
         <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
 
@@ -60,7 +60,7 @@
                     <f:facet name="header">
                         <h:outputText value="Accion"/>
                     </f:facet>
-                  
+                  <!--
                     <p:commandButton id="editButton" 
                          icon="ui-icon-pencil"  update=":EditForm"                          
                          actionListener="#{crudUsuarios.asignar(item)}"
@@ -70,7 +70,7 @@
                                      update=":growl,:ListForm:datalist" >
                         <p:confirm header="Confirmacion" message="Desea Eliminar el registro" icon="ui-icon-alert"/>
                     </p:commandButton>
-                     
+                     -->
                 </p:column>
 
         </p:dataTable>        

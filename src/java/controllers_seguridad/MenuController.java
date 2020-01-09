@@ -80,7 +80,7 @@ public class MenuController implements Serializable{
                        DefaultMenuItem item = new DefaultMenuItem (i.getDescOpcion());
                        //item.setOutcome(i.getUrl());  
                        //item.setUrl(i.getUrl());
-                       if (i.getUrl().length()>5){
+                       if (i.getUrl().length()>5 && !i.getUrl().isEmpty()){
                           item.setOutcome(i.getUrl());
                        }
                        

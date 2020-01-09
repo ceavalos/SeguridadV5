@@ -21,6 +21,8 @@
                                          requiredMessage="La empresa es obligatoria">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                          
+                            <!-- <p:ajax event="change" onstart="true"  partialSubmit="true"  update="IdRol" listener="#{loginController.populateRoles()}"  process="@this" />
+                            -->
                         </p:selectOneMenu>
                         
                         <p:outputLabel  value="Sistema" />                        
@@ -29,7 +31,7 @@
                                          requiredMessage="El Sistema es obligatorio">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItems value="#{crudSistemas.sistemas}" var="item" itemValue="#{item}" itemLabel="#{item.nombreSistema}"/>                          
-                          
+                            
                         </p:selectOneMenu>
                         
                         <h:outputText value = "Nombre Menu"  />
@@ -45,14 +47,9 @@
                             <f:selectItem itemLabel="Item" itemValue="I" />
                         </p:selectOneMenu>
                         
-                        <h:outputText value = "Codigo Submenu"  />
-                        <p:selectOneMenu id="IdSubmenu" value="#{crudOpciones.empresa.codigoSubmenu.idOpcion}" 
-                                         converter="opcionesConverter" 
-                                         >
-                            <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{crudOpciones.submenu}" var="item" itemValue="#{item}" itemLabel="ItemLabel"/>                          
-                          
-                        </p:selectOneMenu>
+                        <h:outputText value = "SubMenu"  />
+                        <h:inputText value = "#{crudOpciones.empresa.codigoSubmenu.idOpcion}"  size="100" maxlength="100" />                         
+                       
                         
                         <h:outputText value = "Estado"  />
                         <p:selectOneMenu id="IdEstado" value="#{crudOpciones.empresa.estado}" required="true"                                           

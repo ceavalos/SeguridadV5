@@ -6,18 +6,23 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <p:dialog id="EditDlg" widgetVar="EditDialog" modal="true" resizable="false"  
-               appendTo="@(body)" header="Edicion de Usuarios" closeOnEscape="true">
-         <h:form id="EditForm">
-            <p:panel id="display" rendered="true" header="Edicion de Usuarios">
-                 <h:panelGrid columns="2"> 
-                     
-                  <p:outputLabel  value="Empresa" />                        
+    <p:dialog id="CreateDlg" widgetVar="CreateDialog" modal="true" 
+                 resizable="false" appendTo="@(body)"                  
+                 header="Creacion de Usuarios por Rol" closeOnEscape="true">
+   
+         <h:form id="CreateForm">
+
+                <h:panelGroup id="display" rendered="true">                    
+                      <p:panelGrid columns="2" columnClasses="column">
+                       
+                        <p:outputLabel  value="Empresa" />                        
                         <p:selectOneMenu id="IdEmpresa" value="#{crudOpciones.empresa.idEmpresa}" required="true" 
                                          converter="empresaConverter" 
                                          requiredMessage="La empresa es obligatoria">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                          
+                            <!-- <p:ajax event="change" onstart="true"  partialSubmit="true"  update="IdRol" listener="#{loginController.populateRoles()}"  process="@this" />
+                            -->
                         </p:selectOneMenu>
                         
                         <p:outputLabel  value="Sistema" />                        
@@ -25,7 +30,8 @@
                                          converter="sistemasConverter" 
                                          requiredMessage="El Sistema es obligatorio">
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{crudSistemas.sistemas}" var="item" itemValue="#{item}" itemLabel="#{item.nombreSistema}"/>                                                    
+                            <f:selectItems value="#{crudSistemas.sistemas}" var="item" itemValue="#{item}" itemLabel="#{item.nombreSistema}"/>                          
+                            
                         </p:selectOneMenu>
                         
                         <h:outputText value = "Nombre Menu"  />
@@ -34,10 +40,6 @@
                         <h:outputText value = "Url a Invocar"  />
                         <h:inputText value = "#{crudOpciones.empresa.url}"  size="100" maxlength="100" />                         
                        
-                        <h:outputText value = "SubMenu"  />
-                        <h:inputText value = "#{crudOpciones.empresa.codigoSubmenu.idOpcion}"  size="100" maxlength="100" />                         
-                       
-                        
                         <h:outputText value = "Tipo Opcion"  />
                         <p:selectOneMenu id="IdTipoMenu" value="#{crudOpciones.empresa.tipo}" required="true"                                           
                                          var="item" requiredMessage="El tipo de Menu es obligatorio">
@@ -45,27 +47,27 @@
                             <f:selectItem itemLabel="Item" itemValue="I" />
                         </p:selectOneMenu>
                         
+                        <h:outputText value = "SubMenu"  />
+                        <h:inputText value = "#{crudOpciones.empresa.codigoSubmenu.idOpcion}"  size="100" maxlength="100" />                         
+                       
+                        
                         <h:outputText value = "Estado"  />
                         <p:selectOneMenu id="IdEstado" value="#{crudOpciones.empresa.estado}" required="true"                                           
                                          var="item" requiredMessage="El estado del menu es obligatorio">
                             <f:selectItem itemLabel="Activo" itemValue="A" />
                             <f:selectItem itemLabel="Inactivo" itemValue="I" />
                         </p:selectOneMenu>
+                            
+                      </p:panelGrid>                              
+                        
                       
                         
+                    <p:commandButton value="Cancelar" oncomplete="PF('CreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                     
-                 </h:panelGrid>                         
-            </p:panel>   
+                </h:panelGroup>
+              
              
-             <p:commandButton actionListener="#{crudUsuarios.update()}" value="Guardar"  
-                                 update="display,:ListForm:datalist,:growl"                                  
-                                 oncomplete="handleSubmit(xhr,status,args,PF('EditDialog'));">
-                        <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/> 
-                </p:commandButton> 		 
-             
-                <p:commandButton value="Cancelar" oncomplete="PF('EditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                  
-        </h:form>
-    </p:dialog>
-
+            </h:form>
+    
+       </p:dialog>  
 </ui:composition>

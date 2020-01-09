@@ -9,7 +9,11 @@
     <h:form id="ListForm">
         <p:panel header="Mantenimiento de Opciones">
             <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
-             
+            
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudOpciones.prepareCreate()}" 
+                              oncomplete="PF('CreateDialog').show()"/>             
+            
             <p:dataTable id="datalist"
                          value="#{crudOpciones.empresas}"
                          lazy="false"
@@ -20,6 +24,7 @@
                          rowsPerPageTemplate="10,20,30,40,50"
                          selectionMode="single"                             
                          > 
+               
                 <p:column sortBy="#{item.idOpcion}" >
                     <f:facet name="header">
                         <h:outputText value="Id_opcion"/>
@@ -40,7 +45,7 @@
                     </f:facet>
                    <h:outputText value="#{item.descOpcion}"/>
                 </p:column>
-    
+                
                 <p:column sortBy="#{item.url}" filterBy="#{item.url}">
                     <f:facet name="header">
                         <h:outputText value="Opcion Ejecutar"/>
@@ -54,13 +59,12 @@
                     </f:facet>
                     <h:outputText value="#{item.tipo}"/>
                 </p:column>
-
-
+                
                 <p:column sortBy="#{item.codigoSubmenu}" filterBy="#{item.codigoSubmenu}">
                     <f:facet name="header">
-                        <h:outputText value="Codigo Submenu"/>
+                        <h:outputText value="Submenu"/>
                     </f:facet>
-                   <h:outputText value="#{item.codigoSubmenu}"/>
+                     <h:outputText value="#{item.codigoSubmenu}"/>
                 </p:column>
                
                 <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
@@ -70,7 +74,7 @@
                    <h:outputText value="#{item.estado}"/>
                 </p:column>
                 
-                <p:column >
+              <p:column >
                     <f:facet name="header">
                         <h:outputText value="Accion"/>
                     </f:facet>
@@ -86,13 +90,9 @@
                     </p:commandButton>
                      
                 </p:column>
-
-        </p:dataTable>        
+                
+        </p:dataTable> 
             
-            <p:commandButton id="createButton"  icon="ui-icon-plus"   
-                             value="Adicionar" actionListener="#{crudOpciones.prepareCreate()}" 
-                              oncomplete="PF('CreateDialog').show()"/>             
-                    
             
         </p:panel> 
             

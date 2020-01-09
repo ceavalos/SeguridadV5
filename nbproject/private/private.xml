@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/roles/List.xhtml</file>
-            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/src/java/controllers_seguridad/CrudRoles.java</file>
-            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/usuarios/Create.xhtml</file>
-            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/roles/Edit.xhtml</file>
-            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/roles/Create.xhtml</file>
+            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/usuariorol/Edit.xhtml</file>
+            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/src/java/controllers_seguridad/CrudUsuariosRoles.java</file>
+            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/usuariorol/Create.xhtml</file>
+            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/app/usuariorol/List.xhtml</file>
+            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/web/WEB-INF/seg_entity/usuariorol/List.xhtml</file>
+            <file>file:/C:/Users/Carlos%20Avalos/Documents/NetBeansProjects/SeguridadV5/src/java/modelos_seguridad/UsuariosRoles.java</file>
         </group>
     </open-files>
 </project-private>

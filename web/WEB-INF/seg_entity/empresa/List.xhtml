@@ -9,7 +9,11 @@
     <h:form id="EmpresaListForm">
         <p:panel header="Mantenimiento de empresas">
             <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
-
+        
+            <p:commandButton id="createButton"  icon="ui-icon-plus"   
+                             value="Adicionar" actionListener="#{crudEmpresa.prepareCreate()}" 
+                              oncomplete="PF('EmpresaCreateDialog').show()"/>             
+ 
            <p:dataTable id="datalist"
                         value="#{crudEmpresa.empresas}"
                          lazy="false"
@@ -61,9 +65,7 @@
                 </p:column>
 
             </p:dataTable>        
-            <p:commandButton id="createButton"  icon="ui-icon-plus"   
-                             value="Adicionar" actionListener="#{crudEmpresa.prepareCreate()}" 
-                              oncomplete="PF('EmpresaCreateDialog').show()"/>             
+           
         </p:panel> 
         
         <ui:include src="/WEB-INF/include/confirmation.xhtml"/>

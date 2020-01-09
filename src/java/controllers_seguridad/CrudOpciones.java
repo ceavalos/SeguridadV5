@@ -20,24 +20,14 @@ public class CrudOpciones implements Serializable{
 
   private List<Opciones> empresas;  
   
-  private List<Opciones> Submenu;  
-  
- @Inject  
+  @Inject  
   private Opciones empresa;
 
-    public List<Opciones> getSubmenu() {
-        return Submenu;
-    }
-
-    public void setSubmenu(List<Opciones> Submenu) {
-        this.Submenu = Submenu;
-    }
-
+  
   @PostConstruct
   private void init(){
       //empresa  = new Empresa();
       empresas =  empresaEJB.findAll();
-      Submenu = empresaEJB.buscarSubmenu();
   }
 
     public List<Opciones> getEmpresas() {
