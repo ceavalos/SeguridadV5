@@ -2,6 +2,7 @@ package controllers_seguridad;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -11,11 +12,14 @@ import modelos_seguridad.Empresa;
 import modelos_seguridad.Usuarios;
 import persistenciaSeguridad_ejb.EmpresaFacadeLocal;
 import persistenciaSeguridad_ejb.UsuariosFacadeLocal;
+import java.util.logging.Level;
 
 @Named(value = "crudUsuarios")
 @ViewScoped
 public class CrudUsuarios implements Serializable {
 
+    private final static Logger LOGGER = Logger.getLogger("CrudUsuarios");
+    
     @EJB
     UsuariosFacadeLocal usuarios_EJB;
                 
@@ -72,4 +76,6 @@ public class CrudUsuarios implements Serializable {
         this.usuario = usuario;
         
     }
+  
+ 
 }

@@ -72,8 +72,4 @@ public class EmpresaController implements Serializable{
         listado = empresaEJB.findAll();
     }
     
-   
-    
-   
-    
 }

@@ -30,4 +30,5 @@ public interface RolesFacadeLocal {
 
     int count();
     
+    List<Roles> findrolesCia(Integer emp);
 }

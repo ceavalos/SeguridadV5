@@ -71,4 +71,9 @@ public class CrudRoles implements Serializable {
         this.sistema = usuario;
         
     }
+  
+  public void rolesCia(Integer cia){
+     this.sistemas.clear();
+     this.sistemas = sistemas_EJB.findrolesCia(cia);
+  }
 }

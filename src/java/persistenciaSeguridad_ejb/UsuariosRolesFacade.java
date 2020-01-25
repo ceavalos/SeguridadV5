@@ -5,9 +5,15 @@
  */
 package persistenciaSeguridad_ejb;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import modelos_seguridad.Empresa;
+import modelos_seguridad.Usuarios;
 import modelos_seguridad.UsuariosRoles;
 
 /**
@@ -25,6 +31,28 @@ public class UsuariosRolesFacade extends AbstractFacade<UsuariosRoles> implement
         return em;
     }
 
+    @Override
+    public List<Usuarios> FindUsersCia(Integer emp){      
+      String consulta;             
+      List<Usuarios> lista =  new ArrayList<Usuarios>();
+      
+        try {
+            consulta = "FROM Usuarios u WHERE u.estado = 'A' and u.idEmpresa.idEmpresa = ?1 ";           
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, emp);            
+            
+            lista = query.getResultList();
+            /*
+            for(Usuarios lis : lista){
+                System.out.print ("Revisando lista empresa " + emp +" usuario de empresa "+ lis.getCodUsuario());
+            }*/
+            
+        } catch (Exception e) {
+            System.out.println("Error al leer usuarios para desplegar " + e.getMessage());
+        }
+        return lista;
+    };
+            
     public UsuariosRolesFacade() {
         super(UsuariosRoles.class);
     }

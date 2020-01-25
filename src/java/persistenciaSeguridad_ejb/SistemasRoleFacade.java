@@ -5,10 +5,12 @@
  */
 package persistenciaSeguridad_ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import modelos_seguridad.SistemasRole;
+import modelos_seguridad.Usuarios;
 
 /**
  *
@@ -28,5 +30,7 @@ public class SistemasRoleFacade extends AbstractFacade<SistemasRole> implements 
     public SistemasRoleFacade() {
         super(SistemasRole.class);
     }
+
+   
     
 }

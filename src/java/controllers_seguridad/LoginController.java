@@ -160,8 +160,8 @@ public class LoginController implements Serializable{
                  System.out.println("Entramos a validar Usuario y empresa");
                 // Validando que rol tiene asignado ese usuario para la empresa seleccionada
                 for (UsuariosRoles userrol : userRol){
-                    System.out.println("En el for de roles "+userrol.getIdUserRole() + " "+u.getIdUsuario());
-                    if(   userrol.getIdUserRole().equals(u.getIdUsuario())                       
+                    System.out.println("En el for de roles "+userrol.getIdUsuario().getIdUsuario() + " "+u.getIdUsuario());
+                    if(   userrol.getIdUsuario().getIdUsuario().equals(u.getIdUsuario())                       
                             ){
                         
                      //Asignando el rol del usuario para la empresa seleccionada

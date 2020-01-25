@@ -16,51 +16,40 @@
                       <p:panelGrid columns="2" columnClasses="column">
                        
                         <p:outputLabel  value="Empresa" />                        
-                        <p:selectOneMenu id="IdEmpresa" value="#{crudOpciones.empresa.idEmpresa}" required="true" 
+                        <p:selectOneMenu id="IdEmpresa" value="#{crudUsuariosRoles.empresa}" required="true" 
                                          converter="empresaConverter" 
                                          requiredMessage="La empresa es obligatoria">
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                          
-                            <!-- <p:ajax event="change" onstart="true"  partialSubmit="true"  update="IdRol" listener="#{loginController.populateRoles()}"  process="@this" />
-                            -->
+                            <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                                                      
+                            <p:ajax event="change" update="IdCodUsuario" listener="#{crudUsuariosRoles.usuarioCia()}"  process="@this" />                                                         
+                            <p:ajax event="change" update="IdRolUsuario" listener="#{crudUsuariosRoles.populateroles()}"  process="@this" />  
+                           
                         </p:selectOneMenu>
-                        
-                        <p:outputLabel  value="Sistema" />                        
-                        <p:selectOneMenu id="IdSistema" value="#{crudOpciones.empresa.idSistema}" required="true" 
-                                         converter="sistemasConverter" 
-                                         requiredMessage="El Sistema es obligatorio">
+                                                
+                        <h:outputText value = "Usuario"  />
+                        <p:selectOneMenu id="IdCodUsuario" value="#{crudUsuariosRoles.usuario}"  required="true" 
+                                         converter="usuariosConverter" 
+                                         requiredMessage="Codigo de usuario es obligatorio">
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{crudSistemas.sistemas}" var="item" itemValue="#{item}" itemLabel="#{item.nombreSistema}"/>                          
+                            <f:selectItems value="#{crudUsuariosRoles.usuariosList}" var="item" itemValue="#{item}" itemLabel="#{item.codUsuario} - #{item.nombre}" />                                                        
+                           
+                        </p:selectOneMenu>                                               
+                        
+                        <h:outputText value = "Rol a Asignar"  />
+                        <p:selectOneMenu id="IdRolUsuario" value="#{crudUsuariosRoles.roles}" required="true" 
+                                         converter="rolesConverter" 
+                                         requiredMessage="El codigo de Rol es obligatorio">
+                            <f:selectItem itemLabel="Select One" itemValue="" />                           
+                            <f:selectItems value="#{crudUsuariosRoles.rolesList}" var="item" itemValue="#{item}" itemLabel="#{item.nombreRol}" /> 
                             
-                        </p:selectOneMenu>
-                        
-                        <h:outputText value = "Nombre Menu"  />
-                        <h:inputText value = "#{crudOpciones.empresa.descOpcion}"  required="true" requiredMessage="El nombre del menu es obligatorio" size="100" maxlength="100"/>
-
-                        <h:outputText value = "Url a Invocar"  />
-                        <h:inputText value = "#{crudOpciones.empresa.url}"  size="100" maxlength="100" />                         
-                       
-                        <h:outputText value = "Tipo Opcion"  />
-                        <p:selectOneMenu id="IdTipoMenu" value="#{crudOpciones.empresa.tipo}" required="true"                                           
-                                         var="item" requiredMessage="El tipo de Menu es obligatorio">
-                            <f:selectItem itemLabel="Submenu" itemValue="S" />
-                            <f:selectItem itemLabel="Item" itemValue="I" />
-                        </p:selectOneMenu>
-                        
-                        <h:outputText value = "SubMenu"  />
-                        <h:inputText value = "#{crudOpciones.empresa.codigoSubmenu.idOpcion}"  size="100" maxlength="100" />                         
-                       
-                        
-                        <h:outputText value = "Estado"  />
-                        <p:selectOneMenu id="IdEstado" value="#{crudOpciones.empresa.estado}" required="true"                                           
-                                         var="item" requiredMessage="El estado del menu es obligatorio">
-                            <f:selectItem itemLabel="Activo" itemValue="A" />
-                            <f:selectItem itemLabel="Inactivo" itemValue="I" />
-                        </p:selectOneMenu>
+                        </p:selectOneMenu>                                               
                             
                       </p:panelGrid>                              
                         
-                      
+                       <p:commandButton actionListener ="#{crudUsuariosRoles.almacenar()}" value="Almacenar"  
+                                         update="display,:ListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CreateDialog'));" >
+                            <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/>                                                                     
+                        </p:commandButton>
                         
                     <p:commandButton value="Cancelar" oncomplete="PF('CreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                     

@@ -7,6 +7,8 @@ package persistenciaSeguridad_ejb;
 
 import java.util.List;
 import javax.ejb.Local;
+import modelos_seguridad.Empresa;
+import modelos_seguridad.Usuarios;
 import modelos_seguridad.UsuariosRoles;
 
 /**
@@ -28,6 +30,8 @@ public interface UsuariosRolesFacadeLocal {
 
     List<UsuariosRoles> findRange(int[] range);
 
+    List<Usuarios> FindUsersCia(Integer emp);
+    
     int count();
     
 }

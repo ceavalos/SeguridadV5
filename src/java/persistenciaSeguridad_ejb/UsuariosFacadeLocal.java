@@ -26,4 +26,5 @@ public interface UsuariosFacadeLocal {
     
     Usuarios UsuarioIniciarSesioneEmp(Usuarios us, Empresa emp);
     
+    List<Usuarios> FindUsersCia(Integer emp);
 }

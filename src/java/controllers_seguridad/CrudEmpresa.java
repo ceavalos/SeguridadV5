@@ -50,7 +50,7 @@ public class CrudEmpresa implements Serializable{
           
      
      public void asignar(Empresa empresa){
-         System.out.println("Asignar empresa");         
+         //System.out.println("Asignar empresa");         
         this.empresa = empresa;
         
     }
