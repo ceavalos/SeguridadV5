@@ -87,11 +87,12 @@ public class CrudUsuariosRoles implements Serializable {
    }    
 
  public void almacenar(){
-       System.out.println("Almacenando UsuariosRoles");   
+      /* System.out.println("Almacenando UsuariosRoles");   
        System.out.println("Id Empresa "+this.empresa.getIdEmpresa());   
        System.out.println("Id Usuario "+this.usuario.getIdUsuario());   
        System.out.println("Id Rol "+this.roles.getIdRol());  
-       //       
+       */         
+              
        this.usuarioRol.setIdEmpresa(this.empresa);
        this.usuarioRol.setIdUsuario(this.usuario);
        this.usuarioRol.setIdRol(this.roles);
@@ -101,8 +102,15 @@ public class CrudUsuariosRoles implements Serializable {
    }
  
   public void update(){
-      // System.out.println("Creando empresa");
-      // usuariosRoles_EJB.edit(this.usuarioRol);
+      this .usuarioRol.setIdEmpresa(this.empresa);
+       this.usuarioRol.setIdUsuario(this.usuario);
+       this.usuarioRol.setIdRol(this.roles);
+    
+       System.out.println("Antes del update");
+       usuariosRoles_EJB.edit(this.usuarioRol);
+       usuariosRolesList =  usuariosRoles_EJB.findAll();
+       
+       
       
    }
   public void eliminar(UsuariosRoles usuario){
@@ -112,23 +120,33 @@ public class CrudUsuariosRoles implements Serializable {
       
   }   
   public void asignar(UsuariosRoles usuario){
-        System.out.println("Asignar empresa= "+usuario.getIdEmpresa().getIdEmpresa() );         
-        System.out.println("Asignar usuario= "+usuario.getIdUsuario().getIdUsuario() ); 
-        System.out.println("Asignar rol= "+usuario.getIdRol().getIdRol() ); 
+        System.out.println("Asignar empresa$= "+usuario.getIdEmpresa().getIdEmpresa() );         
+        System.out.println("Asignar usuario#= "+usuario.getIdUsuario().getIdUsuario() ); 
+        System.out.println("Asignar rol#= "+usuario.getIdRol().getIdRol() ); 
         
+        this .usuarioRol.setIdUserRole(usuario.getIdUserRole());
+                
         this.empresa.equals(usuario.getIdEmpresa());
         this.usuario.equals(usuario.getIdUsuario());
         this.roles.equals(usuario.getIdRol());
-       
+        
+        
+        this.empresa = empresa_EJB.find( (usuario.getIdEmpresa().getIdEmpresa()));
+        this.usuario = usuarios_EJB.find((usuario.getIdUsuario().getIdUsuario()));
+        this.roles   = roles_EJB.find( (usuario.getIdRol().getIdRol()));
+        
+        populateuser();
+        populateroles();        
+        //
     }
   
   public void populateuser(){     
-      //System.out.println("Entramos al conroller en populateUsers idEmpresa" +this.usuarioRol.getIdEmpresa().getIdEmpresa());      
-      usuarios_EJB.FindUsersCia(this.usuarioRol.getIdEmpresa().getIdEmpresa());            
+      System.out.println("Entramos al conroller en populateUsers idEmpresa " +usuario.getIdEmpresa().getIdEmpresa());      
+      usuariosList =  usuarios_EJB.FindUsersCia(usuario.getIdEmpresa().getIdEmpresa());           
   }
   
     public void populateroles(){        
-        //LOGGER.log(Level.INFO, "Entramos al conroller en populateRoles " + this.empresa.getIdEmpresa() );        
+        LOGGER.log(Level.INFO, "Entramos al conroller en populateRoles " + this.empresa.getIdEmpresa() );        
         rolesList= roles_EJB.findrolesCia(this.empresa.getIdEmpresa());
     };
 

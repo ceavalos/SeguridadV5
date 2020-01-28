@@ -9,7 +9,7 @@
     <p:dialog id="EditDlg" widgetVar="EditDialog" modal="true" resizable="false"  
                appendTo="@(body)" header="Edicion de Usuarios por Roles" closeOnEscape="true">
          <h:form id="EditForm">
-            <p:panel id="display" rendered="true" header="Edicion de Usuarios por Roles">
+            <p:panel id="display" rendered="true" header="Edicion de Usuarios por Roles.">
                  <h:panelGrid columns="2"> 
                      
                        <p:outputLabel  value="Empresa" />                        
@@ -18,34 +18,35 @@
                                          requiredMessage="La empresa es obligatoria">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                                                      
-                            <p:ajax event="change" update="IdCodUsuario" listener="#{crudUsuariosRoles.usuarioCia()}"  process="@this" />                                                         
-                            <p:ajax event="change" update="IdRolUsuario" listener="#{crudUsuariosRoles.populateroles()}"  process="@this" />  
-                           
+                          
                         </p:selectOneMenu>
                         
-                        <h:outputText value = "Usuario"  />
-                        <p:selectOneMenu id="IdCodUsuario" value="#{crudUsuariosRoles.usuario}"  required="true" 
-                                         converter="usuariosRolesConverter" 
+                       <h:outputText value = "Usuario"  />
+                        <p:selectOneMenu id="IdCodUsuario" value="#{crudUsuariosRoles.usuario}"  required="true"                                         
+                                         converter="usuariosConverter" 
                                          requiredMessage="Codigo de usuario es obligatorio">
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{crudUsuariosRoles.usuariosList}" var="item" itemValue="#{item}" itemLabel="#{item.codUsuario} - #{item.nombre}" />                                                        
-                           
+                            <f:selectItems value="#{crudUsuariosRoles.usuariosList}" var="item" itemValue="#{item}" itemLabel="#{item.codUsuario} - #{item.nombre}" />                                                                                   
                         </p:selectOneMenu>  
                         
-                        <h:outputText value = "Rol a Asignar"  />
+                       <h:outputText value = "Rol a Asignar"  />
                         <p:selectOneMenu id="IdRolUsuario" value="#{crudUsuariosRoles.roles}" required="true" 
                                          converter="rolesConverter" 
                                          requiredMessage="El codigo de Rol es obligatorio">
                             <f:selectItem itemLabel="Select One" itemValue="" />                           
                             <f:selectItems value="#{crudUsuariosRoles.rolesList}" var="item" itemValue="#{item}" itemLabel="#{item.nombreRol}" /> 
                             
-                        </p:selectOneMenu>
+                        </p:selectOneMenu> 
                                                 
                     
                  </h:panelGrid>                         
             </p:panel>   
-             
-             
+            
+                	
+              <p:commandButton actionListener="#{crudUsuariosRoles.update()}" value="Guardar"  
+                                 update="display,:ListForm:datalist,:growl"                                  
+                                 oncomplete="handleSubmit(xhr,status,args,PF('EditDialog'));">
+		</p:commandButton> 
              
                 <p:commandButton value="Cancelar" oncomplete="PF('EditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                   
