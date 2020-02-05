@@ -7,6 +7,7 @@ package persistenciaSeguridad_ejb;
 
 import java.util.List;
 import javax.ejb.Local;
+import modelos_seguridad.Opciones;
 import modelos_seguridad.OpcionesRoles;
 
 /**
@@ -29,5 +30,8 @@ public interface OpcionesRolesFacadeLocal {
     List<OpcionesRoles> findRange(int[] range);
 
     int count();
+    
+    List<Opciones> findCiaAll(Opciones cia);
+   
     
 }

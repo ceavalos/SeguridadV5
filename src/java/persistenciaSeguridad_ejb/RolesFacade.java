@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import modelos_seguridad.Empresa;
 import modelos_seguridad.Roles;
 
 /**
@@ -33,12 +34,12 @@ public class RolesFacade extends AbstractFacade<Roles> implements RolesFacadeLoc
     }
 
     @Override
-    public List<Roles> findrolesCia(Integer emp){
+    public List<Roles> findrolesCia(Empresa emp){
         List<Roles> roles = new ArrayList<Roles>();
         String consulta;
         
         try {
-            consulta = "FROM Roles u WHERE u.estado = 'A' and u.idEmpresa.idEmpresa = ?1 ";           
+            consulta = "FROM Roles u WHERE u.estado = 'A' and u.idEmpresa = ?1 ";           
             Query query = em.createQuery(consulta);
             query.setParameter(1, emp);            
             

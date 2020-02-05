@@ -5,11 +5,14 @@
  */
 package persistenciaSeguridad_ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import modelos_seguridad.Opciones;
 import modelos_seguridad.OpcionesRoles;
-import persistenciaSeguridad_ejb.AbstractFacade;
+import modelos_seguridad.Usuarios;
 
 /**
  *
@@ -29,5 +32,26 @@ public class OpcionesRolesFacade extends AbstractFacade<OpcionesRoles> implement
     public OpcionesRolesFacade() {
         super(OpcionesRoles.class);
     }
+
+    @Override
+    public List<Opciones> findCiaAll(Opciones cia) {
+        List<Opciones> opcionesrolesList;
+        String consulta; 
+        try {
+            consulta = "FROM OpcionesRoles u WHERE u.idEmpresa = ?1  ";           
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, cia.getIdEmpresa());
+            
+            opcionesrolesList = query.getResultList();
+            System.out.println("idEmpresa= "+cia.getIdEmpresa());
+            
+                       
+       } catch (Exception e) {
+            throw e;
+        } 
+      return opcionesrolesList;
+    } 
+   
+    
     
 }

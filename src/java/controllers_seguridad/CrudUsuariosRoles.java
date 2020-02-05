@@ -124,7 +124,7 @@ public class CrudUsuariosRoles implements Serializable {
         System.out.println("Asignar usuario#= "+usuario.getIdUsuario().getIdUsuario() ); 
         System.out.println("Asignar rol#= "+usuario.getIdRol().getIdRol() ); 
         
-        this .usuarioRol.setIdUserRole(usuario.getIdUserRole());
+        this.usuarioRol.setIdUserRole(usuario.getIdUserRole());
                 
         this.empresa.equals(usuario.getIdEmpresa());
         this.usuario.equals(usuario.getIdUsuario());
@@ -147,7 +147,7 @@ public class CrudUsuariosRoles implements Serializable {
   
     public void populateroles(){        
         LOGGER.log(Level.INFO, "Entramos al conroller en populateRoles " + this.empresa.getIdEmpresa() );        
-        rolesList= roles_EJB.findrolesCia(this.empresa.getIdEmpresa());
+        rolesList= roles_EJB.findrolesCia(this.empresa);
     };
 
     public List<Roles> getRolesList() {

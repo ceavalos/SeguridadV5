@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import modelos_seguridad.Empresa;
 import modelos_seguridad.Roles;
 import persistenciaSeguridad_ejb.RolesFacadeLocal;
 
@@ -72,7 +73,7 @@ public class CrudRoles implements Serializable {
         
     }
   
-  public void rolesCia(Integer cia){
+  public void rolesCia(Empresa cia){
      this.sistemas.clear();
      this.sistemas = sistemas_EJB.findrolesCia(cia);
   }

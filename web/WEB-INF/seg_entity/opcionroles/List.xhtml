@@ -7,72 +7,72 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:form id="ListForm">
-        <p:panel header="Mantenimiento de Usuarios por Roles">
+        <p:panel header="Mantenimiento de Opciones por Roles">
         
         <p:messages autoUpdate="true" showSummary="false" showDetail="true"/>                                    
 
         <p:commandButton id="createButton"  icon="ui-icon-plus"   
-                             value="Adicionar" actionListener="#{crudUsuarios.prepareCreate()}" 
+                         value="Adicionar" actionListener="#{crudOpcionesRoles.prepareCreate()}" 
                               oncomplete="PF('CreateDialog').show()"/>             
              
             
             <p:dataTable id="datalist"
-                        value="#{crudUsuarios.usuarios}"
+                         value="#{crudOpcionesRoles.opcionesrolesList}"
                          lazy="false"
                          var="item"
-                         rowKey="#{item.codUsuario}"                          
+                         rowKey="#{item.idOpcionRol}"                          
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
                          selectionMode="single"                             
                          > 
     
-                <p:column sortBy="#{item.idEmpresa.nombre}" filterBy="#{item.idEmpresa.nombre}">                   
-                   <f:facet name="header">
-                        <h:outputText value="Empresa"/>
-                    </f:facet>
-                   <h:outputText value="#{item.idEmpresa.nombre}"/>
-                </p:column>
-    
-                <p:column sortBy="#{item.codUsuario}" filterBy="#{item.codUsuario}">
+                <p:column sortBy="#{item.idOpcionRol}" >
                     <f:facet name="header">
-                        <h:outputText value="Id_Usuario"/>
+                        <h:outputText value="Id_opcion"/>
                     </f:facet>
-                   <h:outputText value="#{item.codUsuario}"/>
+                 <h:outputText value="#{item.idOpcionRol}"/>
                 </p:column>
                 
-               <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
+                <p:column sortBy="#{item.idEmpresa.nombre}" >
                     <f:facet name="header">
-                        <h:outputText value="Nombre Usuario"/>
+                        <h:outputText value="Nombre Empresa"/>
                     </f:facet>
-                    <h:outputText value="#{item.nombre}"/>
+                 <h:outputText value="#{item.idEmpresa.nombre}"/>
                 </p:column>
 
-
-               <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                <p:column sortBy="#{item.idOpcion.descOpcion}" >
                     <f:facet name="header">
-                        <h:outputText value="Estado"/>
+                        <h:outputText value="Nombre Opcion"/>
                     </f:facet>
-                   <h:outputText value="#{item.estado}"/>
+                 <h:outputText value="#{item.idOpcion.descOpcion}"/>
                 </p:column>
-    
-                <p:column >
+                
+                <p:column sortBy="#{item.idRol.nombreRol}" >
+                    <f:facet name="header">
+                        <h:outputText value="Nombre de Rol"/>
+                    </f:facet>
+                 <h:outputText value="#{item.idRol.nombreRol}"/>
+                </p:column>
+                
+                 <p:column >
                     <f:facet name="header">
                         <h:outputText value="Accion"/>
                     </f:facet>
-                  <!--
+                  
                     <p:commandButton id="editButton" 
                          icon="ui-icon-pencil"  update=":EditForm"                          
-                         actionListener="#{crudUsuarios.asignar(item)}"
-                         oncomplete="PF('EditDialog').show()"/>
+                         actionListener="#{crudOpcionesRoles.asignar(item)}"
+                         oncomplete="PF('EditDialog').show()" />
                      
-                    <p:commandButton id="deleteButton"  icon="ui-icon-trash"   actionListener="#{crudUsuarios.eliminar(item)}" 
+                    <p:commandButton id="deleteButton"  icon="ui-icon-trash"   actionListener="#{crudOpcionesRoles.eliminar(item)}" 
                                      update=":growl,:ListForm:datalist" >
                         <p:confirm header="Confirmacion" message="Desea Eliminar el registro" icon="ui-icon-alert"/>
                     </p:commandButton>
-                     -->
+                     
                 </p:column>
-
+                
+                
         </p:dataTable>        
                         
         </p:panel> 

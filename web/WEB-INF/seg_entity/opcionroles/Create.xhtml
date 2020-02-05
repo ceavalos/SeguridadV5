@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="CreateDlg" widgetVar="CreateDialog" modal="true" 
+                 resizable="false" appendTo="@(body)"                  
+                 header="Creacion de Usuarios" closeOnEscape="true">
+   
+         <h:form id="CreateForm">
+
+                <h:panelGroup id="display" rendered="true">                    
+                      <p:panelGrid columns="2" columnClasses="column">
+                       <p:outputLabel  value="Empresa" />                        
+                       <p:selectOneMenu id="IdEmpresa" value="#{crudOpcionesRoles.empresa}" required="true" 
+                                         converter="empresaConverter" 
+                                         requiredMessage="La empresa es obligatoria">
+                            <f:selectItem itemLabel="Select One" itemValue="" />                            
+                            <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                          
+                            <p:ajax event="change" update="IdOpcion" listener="#{crudOpcionesRoles.buscaopciones()}"  process="@this" />  
+                            <p:ajax event="change" update="IdRol" listener="#{crudOpcionesRoles.buscaroles()}"  process="@this" />  
+                        </p:selectOneMenu> 
+                        
+                       <h:outputText value = "Nombre de Opcion"  />                       
+                       <p:selectOneMenu id="IdOpcion" value="#{crudOpcionesRoles.opciones}" required="true" 
+                                         converter="opcionesConverter" 
+                                         requiredMessage="El nombre la opcion es obligatorio">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{crudOpcionesRoles.opcionesrolesList2}" var="item" itemValue="#{item}" itemLabel="#{item.descOpcion}"/> 
+                        </p:selectOneMenu>                         
+                       
+                     <h:outputText value = "Nombre de Rol"  />                       
+                     <p:selectOneMenu id="IdRol" value="#{crudOpcionesRoles.roles}" required="true" 
+                                         converter="rolesConverter" 
+                                         requiredMessage="El nombre del rol es obligatorio">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItems value="#{crudOpcionesRoles.rolesList}" var="item" itemValue="#{item}" itemLabel="#{item.nombreRol}"/> 
+                      </p:selectOneMenu> 
+                       
+                      </p:panelGrid>                              
+                      <p:commandButton actionListener ="#{crudOpcionesRoles.almacenar()}" value="Almacenar"  
+                                         update="display,:ListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CreateDialog'));" >
+                            <p:confirm header="Confirmacion" message="Desea almacenar la Informacion" icon="ui-icon-alert"/>                                                                     
+                        </p:commandButton>
+                    
+                    <p:commandButton value="Cancelar" oncomplete="PF('CreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    
+                </h:panelGroup>
+              
+             
+            </h:form>
+    
+       </p:dialog>  
+</ui:composition>

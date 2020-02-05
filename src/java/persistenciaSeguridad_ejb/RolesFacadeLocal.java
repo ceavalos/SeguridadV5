@@ -7,6 +7,7 @@ package persistenciaSeguridad_ejb;
 
 import java.util.List;
 import javax.ejb.Local;
+import modelos_seguridad.Empresa;
 import modelos_seguridad.Roles;
 
 /**
@@ -30,5 +31,5 @@ public interface RolesFacadeLocal {
 
     int count();
     
-    List<Roles> findrolesCia(Integer emp);
+    List<Roles> findrolesCia(Empresa emp);
 }

@@ -10,8 +10,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import modelos_seguridad.Empresa;
 import modelos_seguridad.Opciones;
-import modelos_seguridad.Usuarios;
 import persistenciaSeguridad_ejb.AbstractFacade;
 
 /**
@@ -65,4 +65,23 @@ public class OpcionesFacade extends AbstractFacade<Opciones> implements Opciones
         } 
       return opt;
     }
+    
+    @Override
+    public List<Opciones> findCiaAll(Empresa cia) {
+        List<Opciones> opcionesrolesList;
+        String consulta; 
+        try {
+            consulta = "FROM Opciones u WHERE u.idEmpresa = ?1  ";           
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, cia);
+            
+            opcionesrolesList = query.getResultList();
+            System.out.println("idEmpresa= "+cia.getIdEmpresa());
+            
+                       
+       } catch (Exception e) {
+            throw e;
+        } 
+      return opcionesrolesList;
+    } 
 }

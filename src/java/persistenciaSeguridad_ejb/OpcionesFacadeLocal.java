@@ -7,6 +7,7 @@ package persistenciaSeguridad_ejb;
 
 import java.util.List;
 import javax.ejb.Local;
+import modelos_seguridad.Empresa;
 import modelos_seguridad.Opciones;
 
 /**
@@ -31,6 +32,8 @@ public interface OpcionesFacadeLocal {
     int count();
     
     List<Opciones> buscarAll();
+    
+    List<Opciones> findCiaAll(Empresa cia);
     
     List<Opciones> buscarSubmenu();
 }
