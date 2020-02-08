@@ -63,9 +63,12 @@ public class Opciones implements Serializable {
     
     @OneToMany(mappedBy = "codigoSubmenu")
     private Collection<Opciones> opcionesCollection;
+   
+    //@Column(name = "CODIGO_SUBMENU")
     @JoinColumn(name = "CODIGO_SUBMENU", referencedColumnName = "ID_OPCION")
     @ManyToOne
     private Opciones codigoSubmenu;
+    
     @Column(name = "URL")
     private String url;
 

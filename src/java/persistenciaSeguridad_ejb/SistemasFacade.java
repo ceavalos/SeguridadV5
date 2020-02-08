@@ -5,6 +5,7 @@
  */
 package persistenciaSeguridad_ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.faces.context.FacesContext;
@@ -33,7 +34,26 @@ public class SistemasFacade extends AbstractFacade<Sistemas> implements Sistemas
         super(Sistemas.class);
     }
 
+    @Override
+    public List<Sistemas> FindSistemasCia(Integer emp) {
+     String consulta;             
+      List<Sistemas> lista =  new ArrayList<Sistemas>();
+      
+        try {
+            consulta = "FROM Sistemas u WHERE u.estado = 'A' and u.idEmpresa.idEmpresa = ?1 ";           
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, emp);            
+            
+            lista = query.getResultList();
+           
+            
+        } catch (Exception e) {
+            System.out.println("Error al leer usuarios para desplegar " + e.getMessage());
+        }
+        return lista;
+    };
 
+    
 
     
 }

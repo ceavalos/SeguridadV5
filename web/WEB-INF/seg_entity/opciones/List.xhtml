@@ -15,7 +15,7 @@
                               oncomplete="PF('CreateDialog').show()"/>             
             
             <p:dataTable id="datalist"
-                         value="#{crudOpciones.empresas}"
+                         value="#{crudOpciones.opciones}"
                          lazy="false"
                          var="item"
                          rowKey="#{item.idOpcion}"                          
@@ -37,6 +37,13 @@
                         <h:outputText value="Nombre Empresa"/>
                     </f:facet>
                    <h:outputText value="#{item.idEmpresa.nombre}"/>
+                </p:column>
+                
+                <p:column sortBy="#{item.idSistema.nombreSistema}" filterBy="#{item.idSistema.nombreSistema}">                   
+                   <f:facet name="header">
+                        <h:outputText value="Nombre Sistema"/>
+                    </f:facet>
+                   <h:outputText value="#{item.idSistema.nombreSistema}"/>
                 </p:column>
                 
                 <p:column sortBy="#{item.descOpcion}" filterBy="#{item.descOpcion}">                   

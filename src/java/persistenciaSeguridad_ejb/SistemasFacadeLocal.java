@@ -31,5 +31,6 @@ public interface SistemasFacadeLocal {
 
     int count();
     
+    List<Sistemas> FindSistemasCia(Integer emp);
     
 }

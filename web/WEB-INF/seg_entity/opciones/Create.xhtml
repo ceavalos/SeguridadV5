@@ -16,43 +16,47 @@
                       <p:panelGrid columns="2" columnClasses="column">
                        
                         <p:outputLabel  value="Empresa" />                        
-                        <p:selectOneMenu id="IdEmpresa" value="#{crudOpciones.empresa.idEmpresa}" required="true" 
+                        <p:selectOneMenu id="IdEmpresa" value="#{crudOpciones.opcion.idEmpresa}" required="true" 
                                          converter="empresaConverter" 
                                          requiredMessage="La empresa es obligatoria">
                             <f:selectItem itemLabel="Select One" itemValue="" />
                             <f:selectItems value="#{crudEmpresa.empresas}" var="item" itemValue="#{item}" itemLabel="#{item.nombre}"/>                          
-                            <!-- <p:ajax event="change" onstart="true"  partialSubmit="true"  update="IdRol" listener="#{loginController.populateRoles()}"  process="@this" />
-                            -->
+                            <p:ajax event="change" update="IdSistema" listener="#{crudOpciones.buscaopciones()}"  process="@this" />  
+                            <p:ajax event="change" update="IdTipoOpcion" listener="#{crudOpciones.opcionesCia()}"  process="@this" />  
                         </p:selectOneMenu>
                         
                         <p:outputLabel  value="Sistema" />                        
-                        <p:selectOneMenu id="IdSistema" value="#{crudOpciones.empresa.idSistema}" required="true" 
+                        <p:selectOneMenu id="IdSistema" value="#{crudOpciones.opcion.idSistema}" required="true" 
                                          converter="sistemasConverter" 
                                          requiredMessage="El Sistema es obligatorio">
                             <f:selectItem itemLabel="Select One" itemValue="" />
-                            <f:selectItems value="#{crudSistemas.sistemas}" var="item" itemValue="#{item}" itemLabel="#{item.nombreSistema}"/>                          
+                            <f:selectItems value="#{crudOpciones.sistemas}" var="item" itemValue="#{item}" itemLabel="#{item.nombreSistema}"/>                          
                             
                         </p:selectOneMenu>
                         
                         <h:outputText value = "Nombre Menu"  />
-                        <h:inputText value = "#{crudOpciones.empresa.descOpcion}"  required="true" requiredMessage="El nombre del menu es obligatorio" size="100" maxlength="100"/>
+                        <h:inputText value = "#{crudOpciones.opcion.descOpcion}"  required="true" requiredMessage="El nombre del menu es obligatorio" size="100" maxlength="100"/>
 
                         <h:outputText value = "Url a Invocar"  />
-                        <h:inputText value = "#{crudOpciones.empresa.url}"  size="100" maxlength="100" />                         
+                        <h:inputText value = "#{crudOpciones.opcion.url}"  size="100" maxlength="100" />                         
                        
-                        <h:outputText value = "Tipo Opcion"  />
-                        <p:selectOneMenu id="IdTipoMenu" value="#{crudOpciones.empresa.tipo}" required="true"                                           
-                                         var="item" requiredMessage="El tipo de Menu es obligatorio">
+                        <h:outputText value = "SubMenu"  />
+                        <p:selectOneMenu id="IdTipoMenu" value="#{crudOpciones.opcion.tipo}" required="true"                                           
+                                         var="item" requiredMessage="El tipo de Menu es obligatorio">                            
                             <f:selectItem itemLabel="Submenu" itemValue="S" />
                             <f:selectItem itemLabel="Item" itemValue="I" />
                         </p:selectOneMenu>
                         
-                        <h:outputText value = "SubMenu"  />
-                        <h:inputText value = "#{crudOpciones.empresa.codigoSubmenu.idOpcion}"  size="100" maxlength="100" />                         
-                       
+                        <h:outputText value = "Codigo Submenu"  />                       
+                        <p:selectOneMenu id="IdTipoOpcion" value="#{crudOpciones.opcion.codigoSubmenu}" 
+                                         converter="opcionesConverter">    
+                            <f:selectItem itemLabel="" itemValue="" />
+                            <f:selectItems value="#{crudOpciones.opciones2}" var="item" itemValue="#{item}" itemLabel="#{item.descOpcion}"/>                          
+                            
+                        </p:selectOneMenu>
                         
                         <h:outputText value = "Estado"  />
-                        <p:selectOneMenu id="IdEstado" value="#{crudOpciones.empresa.estado}" required="true"                                           
+                        <p:selectOneMenu id="IdEstado" value="#{crudOpciones.opcion.estado}" required="true"                                           
                                          var="item" requiredMessage="El estado del menu es obligatorio">
                             <f:selectItem itemLabel="Activo" itemValue="A" />
                             <f:selectItem itemLabel="Inactivo" itemValue="I" />
